@@ -1,39 +1,36 @@
--- init.lua
 
+-- plenary 
+-- init.lua
 -- Add the path to the plugins file
 -- require('plugins')
 require("remaps")
 require("remaps.remap")
+require("remaps.plugins")
 
 require("core.lazy")
 require("core.mason")
-require("core.telescope")
-require("core.treesitter")
 
-require("plugins")
---require("plugins.autocompletion")
 --require("plugins.autopair")
+require("plugins.alpha_dashboard")
 --require("plugins.cloak")
---require("plugins.code_runner")
---require("plugins.dashboard")
+require("plugins.debugger")
 --require("plugins.fugitive")
---require("plugins.init.lua")
---require("plugins.lspconfig")
---require("plugins.neo-tree")
---require("plugins.neotest")
---require("plugins.other")
---require("plugins.snippets")
---require("plugins.telescope")
---require("plugins.terminal")
+require("plugins.Git")
+require("plugins.lspconfig")
+require("plugins.colorschemes")
+require("plugins.snippets")
+require("plugins.telescope")
+require("plugins.treesitter")
 --require("plugins.trouble")
---require("plugins.vimbegood")
---require("plugins.which_key")
+require("plugins.vimbegood")
 
 -- Example to find syntax errors
 
 require("config.colorscheme")
 --require("config.startup")
 require("config.dashboard")
+--require("config.nvim_tree")
+require("config.Explorer")
+
 
 require('feline').setup()
-

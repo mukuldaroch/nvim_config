@@ -12,4 +12,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Require and configure lazy.nvim
-require("lazy").setup("plugins")
+require("lazy").setup("plugins",{
+   defaults = {
+    lazy = false, -- Default to lazy loading, optional
+  },
+  change_detection = {
+    notify = false, -- I find the config changed notification super annoying
+  },
+})
