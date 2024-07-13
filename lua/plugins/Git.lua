@@ -1,8 +1,8 @@
 return {
+
 	{
 		"kdheepak/lazygit.nvim",
 		config = function()
-			vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", { noremap = true, silent = true })
 		end,
 	},
 
@@ -44,7 +44,7 @@ return {
 					border = "none",
 					winblend = 0,
 					highlights = {
-						border = "Normal",
+						border = "none",
 						background = "Normal",
 					},
 					width = function()

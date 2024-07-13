@@ -1,5 +1,4 @@
-
--- plenary 
+-- plenary
 -- init.lua
 -- Add the path to the plugins file
 -- require('plugins')
@@ -26,11 +25,9 @@ require("plugins.vimbegood")
 
 -- Example to find syntax errors
 
-require("config.colorscheme")
---require("config.startup")
 require("config.dashboard")
 --require("config.nvim_tree")
 require("config.Explorer")
-
-
-require('feline').setup()
+-- Apply Carbonfox colorscheme
+vim.cmd("colorscheme carbonfox")
+require("feline").setup()
