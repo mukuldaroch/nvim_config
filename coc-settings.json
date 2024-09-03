@@ -1,0 +1,19 @@
+{
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "args": ["--background-index"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "initializationOptions": {
+        "clangdFileStatus": true
+      }
+    }
+  },
+  "suggest.noselect": false,
+  "suggest.enablePreselect": true,
+  "diagnostic.enable": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.messageTarget": "echo"
+}
+
