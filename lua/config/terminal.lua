@@ -82,9 +82,11 @@ function _G.run_python_in_vertical_terminal()
 	if extension == "py" then
 		cmd = "py " .. file
 	elseif extension == "cpp" then
-		cmd = "clang++ " .. file .. "; .\\a.exe"
+		--cmd = "clang++ " .. file .. "; .\\a.exe"
+		cmd = "g++ " .. file .. "; .\\a.exe"
 	elseif extension == "c" then
-		cmd = "clang " .. file .. "; .\\a.exe"
+		--cmd = "clang " .. file .. "; .\\a.exe"
+		cmd = "gcc " .. file .. "; .\\a.exe"
 	else
 		cmd = "powershell -nologo"
 	end

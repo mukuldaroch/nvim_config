@@ -5,20 +5,37 @@ require("alpha").setup(require("alpha.themes.dashboard").config)
 vim.api.nvim_create_augroup("AlphaDashboard", { clear = true })
 
 -- ------------------------------------------------------------------------
--- Autocommand to hide statusline when alpha is active
+--Autocommand to hide statusline when alpha is active
 --vim.api.nvim_create_autocmd("FileType", {
 --	pattern = "alpha",
 --	group = "AlphaDashboard",
 --	callback = function()
-		-- Hide the statusline by setting laststatus to 0
---		vim.opt.laststatus = 0
-		-- Optional: You can also clear the statusline text
+--		-- Hide the statusline by setting laststatus to 0
+--		--vim.opt.laststatus = 0
+--		-- Optional: You can also clear the statusline text
 --		vim.opt_local.statusline = ""
 --		vim.cmd([[ highlight Normal guibg=NONE ctermbg=NONE ]])
 --		vim.cmd([[ highlight EndOfBuffer guibg=NONE ctermbg=NONE ]]) -- Transparent background
 --	end,
 --})
--- Autocommand to restore the statusline when leaving alpha
+-- Autocommand to hide statusline when alpha is active
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "alpha",
+	group = vim.api.nvim_create_augroup("AlphaDashboard", { clear = true }), -- Create a group for the autocommands
+	callback = function()
+		vim.opt.laststatus = 0 -- Hide the statusline
+	end,
+})
+-- ------------------------------------------------------------------------
+-- Autocommand to restore the statusline after leaving alpha
+vim.api.nvim_create_autocmd("BufUnload", {
+	pattern = "<buffer>",
+	group = "AlphaDashboard",
+	callback = function()
+		vim.opt.laststatus = 2 -- Restore the statusline to the default value
+	end,
+})
+--Autocommand to restore the statusline when leaving alpha
 --vim.api.nvim_create_autocmd("BufUnload", {
 --	pattern = "<buffer>",
 --	group = "AlphaDashboard",
@@ -29,7 +46,6 @@ vim.api.nvim_create_augroup("AlphaDashboard", { clear = true })
 --	end,
 --})
 -- ------------------------------------------------------------------------
-
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 local space = "   "
 
@@ -88,7 +104,7 @@ dashboard.section.buttons.val = {
 -- Adjust buttons to the left
 dashboard.section.buttons.opts = {
 	position = "left", -- default is "center"
-	margin = 0,       -- add a margin to shift the buttons to the left
+	margin = 0, -- add a margin to shift the buttons to the left
 }
 -- Adjust buttons to the right
 dashboard.section.buttons.opts = {
@@ -96,17 +112,6 @@ dashboard.section.buttons.opts = {
 	margin = 0, -- add a margin to shift the buttons to the right
 }
 -- ------------------------------------------------------------------------
---	{ action = 'lua LazyVim.pick()()',                           desc = " Find File",       icon = " ", key = "f" },
---	{ action = "ene | startinsert",                              desc = " New File",        icon = " ", key = "n" },
---	{ action = 'lua LazyVim.pick("oldfiles")()',                 desc = " Recent Files",    icon = " ", key = "r" },
---	{ action = 'lua LazyVim.pick("live_grep")()',                desc = " Find Text",       icon = " ", key = "g" },
---	{ action = 'lua LazyVim.pick.config_files()()',              desc = " Config",          icon = " ", key = "c" },
---	{ action = 'lua require("persistence").load()',              desc = " Restore Session", icon = " ", key = "s" },
---	{ action = "LazyExtras",                                     desc = " Lazy Extras",     icon = " ", key = "x" },
---	{ action = "Lazy",                                           desc = " Lazy",             key = "l" },
---	{ action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",             key = "q" },
--- ----------------------------------------------------------------------------------------------------------------------------------------------------
--- ----------------------------------------------------------------------------------------------------------------------------------------------------
 -- You can also add padding if needed to adjust the buttons
 local function pad(str)
 	return string.rep(" ", 0) .. str

@@ -1,19 +1,21 @@
 {
   "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "args": ["--background-index"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "initializationOptions": {
-        "clangdFileStatus": true
+    "python": {
+      "command": "python",
+      "args": ["-m", "pyright-langserver", "--stdio"],
+      "filetypes": ["python"],
+      "settings": {
+        "python": {
+          "analysis": {
+            "typeCheckingMode": "strict",
+            "autoSearchPaths": true,
+            "useLibraryCodeForTypes": true
+          }
+        }
       }
     }
   },
-  "suggest.noselect": false,
-  "suggest.enablePreselect": true,
-  "diagnostic.enable": true,
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.messageTarget": "echo"
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true
 }
-

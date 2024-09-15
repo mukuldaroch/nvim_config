@@ -4,6 +4,14 @@ return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
+		-- cmp sources plugins
+		"hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
+		"hrsh7th/cmp-buffer", -- Buffer completions
+		"hrsh7th/cmp-path", -- Path completions
+		"hrsh7th/cmp-cmdline", -- Command-line completions
+		"L3MON4D3/LuaSnip", -- Snippet engine
+		"saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
+
 		-- Snippet Engine & its associated nvim-cmp source
 		{
 			"L3MON4D3/LuaSnip",
@@ -25,11 +33,6 @@ return {
 				-- end,
 			},
 		},
-
-		-- cmp sources plugins
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-path",
 
 		-- Autopairing of (){}[] etc
 		{
@@ -109,12 +112,12 @@ return {
 					end
 				end, { "i", "s" }),
 			}),
-			sources = {
-				{ name = "coc.nvim" },
+			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
+				{ name = "luasnip" }, 
+				{ name = "buffer" },
 				{ name = "path" },
-			},
+			}),
 		})
 	end,
 }

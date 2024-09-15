@@ -7,5 +7,7 @@ vim.opt.tabstop = 5 -- tabstop determines the width of a tab character.
 --
 
 --vim.opt.shada = "!,'100,<50,s10,h" -- This configuration limits the size and contents of the ShaDa file to avoid potential issues.
-vim.opt.shadafile = "NONE" --This will prevent Neovim from creating and using ShaDa files, but you will lose session persistence features. 
+vim.opt.shadafile = "NONE" --This will prevent Neovim from creating and using ShaDa files, but you will lose session persistence features.
+----------------------------------------------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------------------------------------------

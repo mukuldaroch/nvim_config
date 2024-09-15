@@ -209,6 +209,18 @@ return {
 				--		cssls = {},
 				-- JavaScript/TypeScript
 				--	tsserver = {},
+				--
+				require("lspconfig").clangd.setup({
+					cmd = { "clangd", "--background-index" },
+					filetypes = { "c", "cpp", "objc", "objcpp" },
+					root_dir = require("lspconfig").util.root_pattern(
+						"compile_commands.json",
+						"compile_flags.txt",
+						".git"
+					),
+					single_file_support = true,
+				}),
+				--[[
 				require("lspconfig").clangd.setup({
 					cmd = { "clangd", "--background-index" },
 					filetypes = { "c", "cpp", "objc", "objcpp" },
@@ -222,10 +234,18 @@ return {
 						},
 					},
 				}),
+				--]]
 				-- gopls = {},
 
-				require("lspconfig").pyright.setup({}),
 				--[[
+				pyright={
+					settings = {
+						python = {
+							pythonPath = "/path/to/your/venv/bin/python",
+						},
+					},
+				},
+				--]]
 				pyright = {
 
 					capabilities = {
@@ -241,7 +261,6 @@ return {
 						},
 					},
 				},
-				--]]
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
