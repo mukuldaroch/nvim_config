@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "alpha",
 	group = vim.api.nvim_create_augroup("AlphaDashboard", { clear = true }), -- Create a group for the autocommands
 	callback = function()
-		vim.opt.laststatus = 0 -- Hide the statusline
+		vim.opt.laststatus = 0                                    -- Hide the statusline
 	end,
 })
 -- ------------------------------------------------------------------------
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("BufUnload", {
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------
 local space = "   "
 
-local header_movement = 30 -- this moves the header towards right
+local header_movement = 20 -- this moves the header towards right
 
 local a = string.rep(space, header_movement)
 -- ------------------------------------------------------------------------

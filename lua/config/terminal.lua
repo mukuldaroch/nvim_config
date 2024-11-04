@@ -1,121 +1,95 @@
 -- Load the toggleterm plugin
 require("toggleterm").setup({})
+
 local Terminal = require("toggleterm.terminal").Terminal
 
--- Function to open lazygit in a full-screen terminal
-function _lazygit_toggle()
-	local lazygit = Terminal:new({
-		cmd = "lazygit",
-		direction = "float",
-		float_opts = {
-			border = "none",
-			width = function()
-				return vim.o.columns
-			end,
-			height = function()
-				return vim.o.lines
-			end,
-		},
-		on_open = function(term)
-			vim.cmd("startinsert!")
-			vim.api.nvim_buf_set_keymap(
-				term.bufnr,
-				"t",
-				"<esc>",
-				[[<C-\><C-n><cmd>close<CR>]],
-				{ noremap = true, silent = true }
-			)
-		end,
-		on_close = function(term)
-			vim.cmd("startinsert!")
-		end,
-	})
-	lazygit:toggle()
-end
-
-
--- Terminal for general use
-local terminal = Terminal:new({
-	cmd = "powershell -nologo",
-	direction = "float",
-	float_opts = {
-		border = "none",
-	},
+-- Create a cached terminal instance for general use
+local general_terminal = Terminal:new({
+ cmd = "bash",
+ direction = "float",
+ float_opts = { border = "none" },
 })
 
--- Function to toggle general terminal
-function _G.ToggleTerminal()
-	terminal.float_opts.width = vim.o.columns
-	terminal.float_opts.height = vim.o.lines
-	terminal:toggle()
+-- Function to toggle the general terminal in full screen
+function _G.toggle_general_terminal()
+ general_terminal.float_opts.width = vim.o.columns
+ general_terminal.float_opts.height = vim.o.lines
+ general_terminal:toggle()
 end
 
--- function to run python file in terminal
-local function run_python_in_full_terminal()
-	local file = vim.fn.bufname("%")
-	local cmd = "py " .. file
-	local run_python = terminal:new({
-		cmd = "powershell -nologo",
-		direction = "float",
-		float_opts = {
-			border = "none",
-		},
-		on_open = function(term)
-			term:send(cmd)
-		end,
-	})
-
-	run_python.float_opts.width = vim.o.columns
-	run_python.float_opts.height = vim.o.lines
-	run_python:toggle()
+-- Function to open lazygit in a full-screen terminal
+function _G.toggle_lazygit()
+ local lazygit = Terminal:new({
+  cmd = "lazygit",
+  direction = "float",
+  float_opts = {
+   border = "none",
+   width = vim.o.columns,
+   height = vim.o.lines,
+  },
+  on_open = function(term)
+   vim.cmd("startinsert!")
+   vim.api.nvim_buf_set_keymap(
+    term.bufnr,
+    "t",
+    "<esc>",
+    [[<C-\><C-n><cmd>close<CR>]],
+    { noremap = true, silent = true }
+   )
+  end,
+ })
+ lazygit:toggle()
 end
 
--- Function to toggle Python terminal with full screen
-function _G.toggle_full()
-	run_python_in_full_terminal()
+-- Function to run Python file in a full-screen terminal
+function _G.run_python_fullscreen()
+ local file = vim.fn.bufname("%")
+ local cmd = "py " .. file
+
+ -- Reuse the general terminal for running Python
+ general_terminal:on_open(function(term)
+  term:send(cmd)
+ end)
+ general_terminal.float_opts.width = vim.o.columns
+ general_terminal.float_opts.height = vim.o.lines
+ general_terminal:toggle()
 end
 
--- Function to toggle Python terminal vertically
-function _G.run_python_in_vertical_terminal()
-	local extension = vim.fn.expand("%:e")
-	local file = vim.fn.bufname("%")
-	if extension == "py" then
-		cmd = "py " .. file
-	elseif extension == "cpp" then
-		--cmd = "clang++ " .. file .. "; .\\a.exe"
-		cmd = "g++ " .. file .. "; .\\a.exe"
-	elseif extension == "c" then
-		--cmd = "clang " .. file .. "; .\\a.exe"
-		cmd = "gcc " .. file .. "; .\\a.exe"
-	else
-		cmd = "powershell -nologo"
-	end
-	local run_python = Terminal:new({
-		cmd = "powershell -nologo",
-		direction = "float",
-		float_opts = {
-			border = "none",
-			width = math.floor(vim.o.columns * 0.4),
-			height = vim.o.lines,
-			col = vim.o.columns - math.floor(vim.o.columns * 0.4),
-			row = 0,
-		},
-		on_open = function(term)
-			term:send(cmd)
-		end,
-	})
+-- Function to run Python or C/C++ files in a vertical terminal
+function _G.run_code_in_vertical_terminal()
+ local extension = vim.fn.expand("%:e")
+ local file = vim.fn.bufname("%")
+ local cmd
 
-	run_python:toggle()
-end
+ if extension == "py" then
+  --cmd = "clear && py " .. file
+  cmd = "clear && py " .. file
+ elseif extension == "cpp" then
+  cmd = "clear && clang " .. file .. " -o x.out && ./x.out"
+ elseif extension == "c" then
+  cmd = "clear && clang " .. file .. " -o x.out && ./x.out"
+ else
+  -- automatically opens the terminal
+ end
 
-function _G.toggle_vertical()
-	run_python_in_vertical_terminal()
+ local vertical_terminal = Terminal:new({
+  direction = "float",
+  float_opts = {
+   border = "none",
+   width = math.floor(vim.o.columns * 0.4),
+   height = vim.o.lines,
+   col = vim.o.columns - math.floor(vim.o.columns * 0.4),
+   row = 0,
+  },
+  on_open = function(term)
+   term:send(cmd)
+  end,
+ })
+ vertical_terminal:toggle()
 end
--- Set the leader key
-vim.g.mapleader = " "
 
 -- Keybindings
-vim.api.nvim_set_keymap("n", "<leader>l", ":lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>c", ":lua ToggleTerminal()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>i", ":lua toggle_full()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>r", ":lua toggle_vertical()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>l", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>c", ":lua toggle_general_terminal()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_python_fullscreen()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_in_vertical_terminal()<CR>", { noremap = true, silent = true })

@@ -1,5 +1,5 @@
 vim.opt.shiftwidth = 2 --shiftwidth determines the number of spaces to use for each step of (auto)indent.
-vim.opt.tabstop = 5 -- tabstop determines the width of a tab character.
+vim.opt.tabstop = 3 -- tabstop determines the width of a tab character.
 --or use plugin like
 --https://github.com/echasnovski/mini.align
 -- https://github.com/tommcdo/vim-lion

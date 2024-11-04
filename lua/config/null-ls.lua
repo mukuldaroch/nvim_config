@@ -12,29 +12,6 @@ local on_attach = function(client, bufnr)
 	else
 		print("No formatting support for:", client.name)
 	end
-
-	-- Diagnostic keymaps
-	vim.api.nvim_buf_set_keymap(
-		bufnr,
-		"n",
-		"<leader>e",
-		"<cmd>lua vim.diagnostic.open_float()<CR>",
-		{ noremap = true, silent = true }
-	)
-	vim.api.nvim_buf_set_keymap(
-		bufnr,
-		"n",
-		"[d",
-		"<cmd>lua vim.diagnostic.goto_prev()<CR>",
-		{ noremap = true, silent = true }
-	)
-	vim.api.nvim_buf_set_keymap(
-		bufnr,
-		"n",
-		"]d",
-		"<cmd>lua vim.diagnostic.goto_next()<CR>",
-		{ noremap = true, silent = true }
-	)
 end
 
 -- Setup LSP servers
@@ -47,9 +24,12 @@ lspconfig.clangd.setup({ on_attach = on_attach })
 local null_ls = require("null-ls")
 null_ls.setup({
 	sources = {
-		null_ls.builtins.formatting.clang_format,
+		--null_ls.builtins.formatting.clang_format,
 		null_ls.builtins.formatting.black,
-		null_ls.builtins.formatting.stylua,
+		--null_ls.builtins.formatting.stylua,
+		null_ls.builtins.formatting.stylua.with({
+			extra_args = { "--indent-width", "1", "--indent-type", "Spaces" },
+		}),
 		-- Uncomment these if needed for linting or diagnostics
 		-- null_ls.builtins.diagnostics.mypy,
 		-- null_ls.builtins.diagnostics.ruff,
@@ -69,5 +49,4 @@ null_ls.setup({
 	end,
 })
 -- Use black as the default Python formatter
-vim.cmd [[autocmd BufWritePre *.py lua vim.lsp.buf.format({ async = true })]]
-
+vim.cmd([[autocmd BufWritePre *.py lua vim.lsp.buf.format({ async = true })]])
