@@ -4,7 +4,7 @@
 This repository contains my personal Neovim configuration. It aims to provide a streamlined and efficient development environment with a focus on clean looks and minimal plugins(e.g., LSP, code completion, syntax highlighting, etc.).
 ## Installation
 
-For Installation : Run this command in nvim Directory 
+For Installation : Run this command in .config Directory 
 
 ```bash
 git clone https://github.com/Mukul-daroch/nvim_config.git
