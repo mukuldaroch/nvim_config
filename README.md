@@ -21,53 +21,39 @@ git clone https://github.com/Mukul-daroch/nvim_config.git
 ### File structure
 ```bash
 nvim/
-│
-├── lua/
-│   │
-│   ├── config/
-│   │   ├── cmp
-│   │   ├── colorscheme
-│   │   ├── dashboard
-│   │   ├── luasnip
-│   │   ├── null-ls
-│   │   ├── nvim_tree
-│   │   └── path
-│   │
-│   ├── core/
-│   │   ├── lazy
-│   │   └── mason
-│   │
-│   ├── custom/
-│   │   ├── Explorer
-│   │   ├── buffer
-│   │   └── show_path
-│   │
-│   ├── plugins/
-│   │   ├── alpha_dashboard
-│   │   ├── autocompletion
-│   │   ├── cloak
-│   │   ├── fugitive
-│   │   ├── init
-│   │   ├── lspconfig
-│   │   ├── neotest
-│   │   ├── nvim_cmp
-│   │   ├── nvim_tree
-│   │   ├── other
-│   │   ├── snippets
-│   │   ├── telescope
-│   │   ├── terminal
-│   │   ├── treesitter
-│   │   ├── trouble
-│   │   └── vimbegood
-│   │
-│   └── remaps/
-│       ├── init
-│       ├── plugins
-│       └── remap
-│
-├── Readme.text
-├── init
+├── coc-settings.json
+├── init.lua
 ├── lazy-lock.json
+├── lua
+│   ├── config
+│   │   ├── colors.lua
+│   │   ├── dashboard.lua
+│   │   ├── Explorer.lua
+│   │   ├── luasnip.lua
+│   │   ├── null-ls.lua
+│   │   ├── nvim_tree.lua
+│   │   └── terminal.lua
+│   ├── core
+│   │   ├── lazy.lua
+│   │   └── mason.lua
+│   ├── plugins
+│   │   ├── alpha_dashboard.lua
+│   │   ├── colorschemes.lua
+│   │   ├── Git.lua
+│   │   ├── lspconfig.lua
+│   │   ├── nvim_cmp.lua
+│   │   ├── snippets.lua
+│   │   ├── telescope.lua
+│   │   ├── terminal.lua
+│   │   ├── treesitter.lua
+│   │   └── vimbegood.lua
+│   └── remaps
+│       ├── init.lua
+│       ├── plugins.lua
+│       └── remap.lua
+└── README.md
+
+6 directories, 26 files
 
 ```
 ## Features
