@@ -7,7 +7,7 @@ This repository contains my personal Neovim configuration. It aims to provide a 
 For Installation : Run these command in .config Directory 
 
 ```bash
-git clone https://github.com/Mukul-daroch/nvim_config.git
+git clone https://github.com/mukuldaroch/nvim_config.git
 ```
 ```bash
 mv nvim_config/ nvim
