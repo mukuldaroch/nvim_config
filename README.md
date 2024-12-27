@@ -4,13 +4,10 @@
 This repository contains my personal Neovim configuration. It aims to provide a streamlined and efficient development environment with a focus on clean looks and minimal plugins(e.g., LSP, code completion, syntax highlighting, etc.).
 ## Installation
 
-For Installation : Run these command in .config Directory 
+For Installation : Run this command in nvim Directory 
 
 ```bash
-git clone https://github.com/mukuldaroch/nvim_config.git
-```
-```bash
-mv nvim_config/ nvim
+git clone https://github.com/Mukul-daroch/nvim_config.git
 ```
 ### Directory structure
 ```bash
@@ -24,39 +21,53 @@ mv nvim_config/ nvim
 ### File structure
 ```bash
 nvim/
-├── coc-settings.json
-├── init.lua
+│
+├── lua/
+│   │
+│   ├── config/
+│   │   ├── cmp
+│   │   ├── colorscheme
+│   │   ├── dashboard
+│   │   ├── luasnip
+│   │   ├── null-ls
+│   │   ├── nvim_tree
+│   │   └── path
+│   │
+│   ├── core/
+│   │   ├── lazy
+│   │   └── mason
+│   │
+│   ├── custom/
+│   │   ├── Explorer
+│   │   ├── buffer
+│   │   └── show_path
+│   │
+│   ├── plugins/
+│   │   ├── alpha_dashboard
+│   │   ├── autocompletion
+│   │   ├── cloak
+│   │   ├── fugitive
+│   │   ├── init
+│   │   ├── lspconfig
+│   │   ├── neotest
+│   │   ├── nvim_cmp
+│   │   ├── nvim_tree
+│   │   ├── other
+│   │   ├── snippets
+│   │   ├── telescope
+│   │   ├── terminal
+│   │   ├── treesitter
+│   │   ├── trouble
+│   │   └── vimbegood
+│   │
+│   └── remaps/
+│       ├── init
+│       ├── plugins
+│       └── remap
+│
+├── Readme.text
+├── init
 ├── lazy-lock.json
-├── lua
-│   ├── config
-│   │   ├── colors.lua
-│   │   ├── dashboard.lua
-│   │   ├── Explorer.lua
-│   │   ├── luasnip.lua
-│   │   ├── null-ls.lua
-│   │   ├── nvim_tree.lua
-│   │   └── terminal.lua
-│   ├── core
-│   │   ├── lazy.lua
-│   │   └── mason.lua
-│   ├── plugins
-│   │   ├── alpha_dashboard.lua
-│   │   ├── colorschemes.lua
-│   │   ├── Git.lua
-│   │   ├── lspconfig.lua
-│   │   ├── nvim_cmp.lua
-│   │   ├── snippets.lua
-│   │   ├── telescope.lua
-│   │   ├── terminal.lua
-│   │   ├── treesitter.lua
-│   │   └── vimbegood.lua
-│   └── remaps
-│       ├── init.lua
-│       ├── plugins.lua
-│       └── remap.lua
-└── README.md
-
-6 directories, 26 files
 
 ```
 ## Features

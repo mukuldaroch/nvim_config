@@ -35,7 +35,7 @@ require("nightfox").setup({
 
   -- Options for inverting colors in certain contexts
   inverse = {
-   match_paren = false, -- Do not invert colors for matching parentheses
+   match_paren = true, -- Do not invert colors for matching parentheses
    visual = false, -- Do not invert colors for visual selections
    search = true, -- Do not invert colors for search matches
   },
