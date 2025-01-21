@@ -64,11 +64,14 @@ function _G.run_code_in_vertical_terminal()
  if extension == "py" then
   --cmd = "clear && py " .. file
   cmd = "py " .. file
+ elseif extension == "java" then
+  cmd = "clear && java " .. file
  elseif extension == "cpp" then
   cmd = "clear && g++ " .. file .. " && ./a.out"
  elseif extension == "c" then
   cmd = "clear && clang " .. file .. " && ./a.out"
  else
+  cmd = "clear"
   -- automatically opens the terminal
  end
 
