@@ -1,5 +1,35 @@
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()                                       -- Set the color for concealed text
+		vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
+		vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
+		vim.opt.conceallevel = 2
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*.md",
+	callback = function()
+		vim.cmd("highlight MarkdownHeader guibg=blue guifg=white gui=bold")
+		vim.cmd("syntax match MarkdownHeader /^# .*/")
+	end,
+})
+
+--NOTES
+vim.cmd([[
+  highlight Notes ctermfg=Yellow guifg=Yellow
+  autocmd BufRead,BufNewFile *.txt,*.md,*.log syntax match Notes /\c\<NOTES\>/
+]])
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Bind Ctrl+; to normal mode
+vim.api.nvim_set_keymap("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "q", ":q<CR>", { noremap = true, silent = true })
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>ee", vim.cmd.Ex)
 
 vim.g.maplocalleader = " "
 
@@ -124,21 +154,21 @@ local map = vim.keymap.set
 
 -- Insert mode key mappings
 map("i", "<C-b>", "<ESC>^i", { desc = "move to beginning of line" }) -- Move to the start of the line
-map("i", "<C-e>", "<End>", { desc = "move to end of line" }) -- Move to the end of the line
-map("i", "<C-h>", "<Left>", { desc = "move left" }) -- Move cursor left
-map("i", "<C-l>", "<Right>", { desc = "move right" }) -- Move cursor right
-map("i", "<C-j>", "<Down>", { desc = "move down" }) -- Move cursor down
-map("i", "<C-k>", "<Up>", { desc = "move up" }) -- Move cursor up
+map("i", "<C-e>", "<End>", { desc = "move to end of line" })         -- Move to the end of the line
+map("i", "<C-h>", "<Left>", { desc = "move left" })                  -- Move cursor left
+map("i", "<C-l>", "<Right>", { desc = "move right" })                -- Move cursor right
+map("i", "<C-j>", "<Down>", { desc = "move down" })                  -- Move cursor down
+map("i", "<C-k>", "<Up>", { desc = "move up" })                      -- Move cursor up
 
 -- Normal mode key mappings
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" }) -- Clear search highlights
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" })                   -- Clear search highlights
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" }) -- Switch to left window
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" }) -- Switch to right window
-map("n", "<C-j>", "<C-w>j", { desc = "switch window down" }) -- Switch to window below
-map("n", "<C-k>", "<C-w>k", { desc = "switch window up" }) -- Switch to window above
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })                       -- Switch to left window
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })                      -- Switch to right window
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })                       -- Switch to window below
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })                         -- Switch to window above
 
-map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" }) -- Save file
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" })                            -- Save file
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true }) -- to move to the split on the left
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true }) -- to move to the split below
@@ -155,3 +185,4 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 -- hides the command line until you need it
 vim.opt.cmdheight = 0
 -- ---------------------------------------------------------------------------------------------------------------------
+vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })

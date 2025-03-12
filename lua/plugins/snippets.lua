@@ -1,35 +1,23 @@
 return {
-	{
-		"L3MON4D3/LuaSnip",
-		lazy = true,
-		-- follow latest release.
-		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-		-- install jsregexp (optional!).
-		build = "make install_jsregexp",
+  "L3MON4D3/LuaSnip",
+  version = "v2.*", -- Use stable version
+  build = "make install_jsregexp", -- Required for regex snippets
+  dependencies = {
+    "rafamadriz/friendly-snippets", -- Optional: Predefined snippets for multiple languages
+  },
+  config = function()
+    local luasnip = require("luasnip")
 
-		dependencies = { "rafamadriz/friendly-snippets" },
+    -- Load VSCode-style snippets from friendly-snippets
+    require("luasnip.loaders.from_vscode").lazy_load()
 
-		config = function()
-			local ls = require("luasnip")
-			ls.filetype_extend("javascript", { "jsdoc" })
+    -- Load custom Lua snippets from ~/.config/nvim/lua/snippets/
+    require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets/" })
 
-			--- TODO: What is expand?
-			vim.keymap.set({ "i" }, "<C-s>e", function()
-				ls.expand()
-			end, { silent = true })
-
-			vim.keymap.set({ "i", "s" }, "<C-s>;", function()
-				ls.jump(1)
-			end, { silent = true })
-			vim.keymap.set({ "i", "s" }, "<C-s>,", function()
-				ls.jump(-1)
-			end, { silent = true })
-
-			vim.keymap.set({ "i", "s" }, "<C-E>", function()
-				if ls.choice_active() then
-					ls.change_choice(1)
-				end
-			end, { silent = true })
-		end,
-	},
+    -- Optional: Set snippet expansion key (Tab)
+    vim.api.nvim_set_keymap("i", "<Tab>", "<cmd>lua require'luasnip'.jump(1)<CR>", { silent = true, noremap = true })
+    vim.api.nvim_set_keymap("s", "<Tab>", "<cmd>lua require'luasnip'.jump(1)<CR>", { silent = true, noremap = true })
+    vim.api.nvim_set_keymap("i", "<S-Tab>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { silent = true, noremap = true })
+    vim.api.nvim_set_keymap("s", "<S-Tab>", "<cmd>lua require'luasnip'.jump(-1)<CR>", { silent = true, noremap = true })
+  end,
 }

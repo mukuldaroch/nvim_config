@@ -8,11 +8,11 @@ return {
 				ensure_installed = { "vim", "vimdoc" },
 				-- working parsers = c , lua , python,
 				-- not working parsers = cpp
-				auto_install = false,
+				auto_install = true,
 
 				highlight = {
 					enable = true,
-					additional_vim_regex_highlighting = false, -- Disable legacy Vim highlighting
+					additional_vim_regex_highlighting = true, -- Disable legacy Vim highlighting
 				},
 			})
 		end,
