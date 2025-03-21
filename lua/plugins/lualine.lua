@@ -17,7 +17,7 @@ return {
                 -- Left-most section
                 lualine_a = { "mode" }, -- Show the current mode (normal, insert, visual, etc.)
                 -- Left section next to `lualine_a`
-                lualine_b = { { "filetype", color = { fg = "#ffcc66", gui = "bold" } }, "filename" }, -- Show git branch, git diff, and LSP diagnostics
+                lualine_b = { { "filetype",color = { fg = "#ffcc66", gui = "bold" } }, "filename" }, -- Show git branch, git diff, and LSP diagnostics
                 -- Middle section
                 lualine_c = { "diagnostics" }, -- Show the current file name
 

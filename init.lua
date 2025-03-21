@@ -22,16 +22,29 @@ vim.api.nvim_create_autocmd("LspDetach", {
         end
     end,
 })
+
+-- Bind Ctrl+; to normal mode
+vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
+
+vim.g.mapleader = " " -- Set leader key to space (change if needed)
+vim.keymap.set("n", "<leader>vs", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
+
+
+vim.cmd([[highlight WinSeparator guifg=#555555 guibg=None]]) -- Change #555555 to a color you prefer
+vim.o.fillchars = "vert:│,horiz:─" -- Thin lines for vertical and horizontal splits
+vim.opt.fillchars = {
+    vert = "│",  -- Thin vertical separator
+    horiz = "─", -- Thin horizontal separator
+    horizup = "─",
+    horizdown = "─",
+    vertleft = "│",
+    vertright = "│",
+    verthoriz = "┼",
+}
+
 vim.cmd([[
     hi Normal guibg=NONE ctermbg=NONE
     hi NormalNC guibg=NONE ctermbg=NONE
     hi EndOfBuffer guibg=NONE ctermbg=NONE
 ]])
-local notify = vim.notify
-vim.notify = function(msg, ...)
-    if msg:match("warning: multiple different client offset_encodings") then
-        return
-    end
-
-    notify(msg, ...)
-end

@@ -24,8 +24,6 @@ vim.cmd([[
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Bind Ctrl+; to normal mode
-vim.api.nvim_set_keymap("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "q", ":q<CR>", { noremap = true, silent = true })
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------

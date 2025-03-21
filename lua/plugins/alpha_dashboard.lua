@@ -35,7 +35,7 @@ return {
    pattern = "<buffer>",
    group = "AlphaDashboard",
    callback = function()
-    vim.opt.laststatus = 2 -- Restore the statusline to the default value
+    vim.opt.laststatus = 3 -- Restore the statusline to the default value
    end,
   })
   --Autocommand to restore the statusline when leaving alpha
