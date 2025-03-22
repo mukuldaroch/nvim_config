@@ -30,9 +30,6 @@ vim.g.mapleader = " " -- Set leader key to space (change if needed)
 vim.keymap.set("n", "<leader>vs", ":vsplit<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
 
-
-vim.cmd([[highlight WinSeparator guifg=#555555 guibg=None]]) -- Change #555555 to a color you prefer
-vim.o.fillchars = "vert:│,horiz:─" -- Thin lines for vertical and horizontal splits
 vim.opt.fillchars = {
     vert = "│",  -- Thin vertical separator
     horiz = "─", -- Thin horizontal separator
@@ -42,6 +39,15 @@ vim.opt.fillchars = {
     vertright = "│",
     verthoriz = "┼",
 }
+
+local notify = vim.notify
+vim.notify = function(msg, ...)
+    if msg:match("warning: multiple different client offset_encodings") then
+        return
+    end
+
+    notify(msg, ...)
+end
 
 vim.cmd([[
     hi Normal guibg=NONE ctermbg=NONE
