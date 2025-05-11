@@ -13,9 +13,9 @@ return {
             local opts = { noremap = true, silent = true, nowait = true, buffer = bufnr }
 
             -- Custom navigation like Yazi
-            vim.keymap.set("n", "l", api.node.open.edit, opts) -- Open file/folder
+            vim.keymap.set("n", "l", api.node.open.edit, opts)             -- Open file/folder
             vim.keymap.set("n", "h", api.node.navigate.parent_close, opts) -- Close folder
-            vim.keymap.set("n", "<CR>", api.node.open.edit, opts) -- Keep Enter working
+            vim.keymap.set("n", "<CR>", api.node.open.edit, opts)          -- Keep Enter working
             -- Exit nvim-tree with 'q'
             vim.keymap.set("n", "q", api.tree.close, opts)
         end
@@ -40,9 +40,9 @@ return {
                 side = "right",
                 width = 30,
                 preserve_window_proportions = true,
-                number = false, -- No line numbers
+                number = false,         -- No line numbers
                 relativenumber = false, -- No relative numbers
-                signcolumn = "no", -- Hide sign column (removes ~)
+                signcolumn = "no",      -- Hide sign column (removes ~)
             },
             git = {
                 enable = true,
@@ -103,8 +103,8 @@ return {
         local keymap = vim.keymap.set
         local opts = { noremap = true, silent = true }
 
-        keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts) -- Toggle tree
-        keymap("n", "<leader>er", ":NvimTreeRefresh<CR>", opts) -- Refresh tree
+        keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)    -- Toggle tree
+        keymap("n", "<leader>er", ":NvimTreeRefresh<CR>", opts)  -- Refresh tree
         keymap("n", "<leader>ef", ":NvimTreeFindFile<CR>", opts) -- Find current file in tree
     end,
 }

@@ -7,7 +7,7 @@ return {
         require("lualine").setup({
             options = {
                 icons_enabled = true, -- Enable icons in the statusline
-                theme = "auto", -- Automatically detect and apply the theme based on the current colorscheme
+                -- theme = "auto", -- Automatically detect and apply the theme based on the current colorscheme
                 component_separators = { left = "", right = "" }, -- Separators between components
                 section_separators = { left = "", right = "" }, -- Separators between sections
                 always_divide_middle = true, -- Ensure left and right sections are always separated
@@ -17,7 +17,7 @@ return {
                 -- Left-most section
                 lualine_a = { "mode" }, -- Show the current mode (normal, insert, visual, etc.)
                 -- Left section next to `lualine_a`
-                lualine_b = { { "filetype",color = { fg = "#ffcc66", gui = "bold" } }, "filename" }, -- Show git branch, git diff, and LSP diagnostics
+                lualine_b = { { "filetype", color = { fg = "#ffcc66", gui = "bold" } }, "filename" }, -- Show git branch, git diff, and LSP diagnostics
                 -- Middle section
                 lualine_c = { "diagnostics" }, -- Show the current file name
 

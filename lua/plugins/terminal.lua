@@ -19,22 +19,6 @@ return {
             },
         })
         -------------------------------------------------------------------------------
-        -- Create a cached terminal instance for general use
-        local music = Terminal:new({
-            shell = vim.o.shell,
-            direction = "float",
-            float_opts = {
-                border = { "", "", "", "", "", "", "", "│" },
-                -- width = math.floor(vim.o.columns * 0.4),
-                -- height = vim.o.lines,
-                -- col = vim.o.columns - math.floor(vim.o.columns * 0.4),
-                -- row = 0,
-            },
-            on_open = function(term)
-                term:send("z music && y")
-            end,
-        })
-        -------------------------------------------------------------------------------
 
         -- Function to open lazygit in a full-screen terminal
         local lazygit = Terminal:new({
@@ -44,7 +28,7 @@ return {
             float_opts = {
                 border = "none",
                 width = vim.o.columns, -- Convert to integer
-                height = vim.o.lines, -- Convert to integer
+                height = vim.o.lines,  -- Convert to integer
             },
             on_open = function(term)
                 vim.cmd("startinsert!") -- Start in insert mode
@@ -70,7 +54,7 @@ return {
             elseif extension == "java" then
                 command = "clear && java " .. file
             elseif extension == "cpp" then
-                command = "clear && g++ " .. file .. " && ./a.out"
+                command = "clear && clang++ " .. file .. " && ./a.out"
             elseif extension == "c" then
                 command = "clear && clang " .. file .. " && ./a.out"
             elseif extension == "md" then
@@ -81,7 +65,7 @@ return {
             elseif extension == "css" then
                 command = "clear && brave " .. file
             elseif extension == "js" then
-                command = "clear && brave " .. file
+                command = "clear && node " .. file
             else
                 command = "clear"
                 -- automatically opens the terminal
@@ -114,11 +98,17 @@ return {
             elseif extension == "java" then
                 command = "clear && java " .. file
             elseif extension == "cpp" then
-                command = "clear && g++ " .. file .. " && ./a.out"
+                command = "clear && clang++ " .. file .. " && ./a.out"
             elseif extension == "c" then
                 command = "clear && clang " .. file .. " && ./a.out"
             elseif extension == "md" then
                 command = "clear && glow --width 60 " .. file
+            elseif extension == "html" then
+                command = "clear && brave " .. file
+            elseif extension == "css" then
+                command = "clear && brave " .. file
+            elseif extension == "js" then
+                command = "clear && node " .. file
             else
                 command = "clear"
             end
@@ -146,11 +136,6 @@ return {
             terminal:toggle()
         end
 
-        -- Function to toggle the music in yazi
-        function _G.toggle_music()
-            music:toggle()
-        end
-
         -- Function to toggle Lazygit
         function _G.toggle_lazygit()
             lazygit:toggle()
@@ -160,7 +145,6 @@ return {
 
         -- Keybindings
         vim.api.nvim_set_keymap("n", "<leader>t", ":lua toggle_terminal ()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>m", ":lua toggle_music()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>l", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap(
