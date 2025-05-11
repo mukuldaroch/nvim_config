@@ -76,6 +76,12 @@ return {
             elseif extension == "md" then
                 command = "clear && glow " .. file
                 -- also can use glow --width 50
+            elseif extension == "html" then
+                command = "clear && brave " .. file
+            elseif extension == "css" then
+                command = "clear && brave " .. file
+            elseif extension == "js" then
+                command = "clear && brave " .. file
             else
                 command = "clear"
                 -- automatically opens the terminal

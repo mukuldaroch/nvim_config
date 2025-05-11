@@ -27,21 +27,24 @@ return {
         mason_lspconfig.setup({
             -- list of servers for mason to install
             ensure_installed = {
-                "eslint_d", -- scan source code looking for errors
-                "lua_ls", -- Lua
-                "jdtls", -- Lua
-                "pyright", -- Python
-                "clangd", -- lsp for c, c++
+                -- "eslint_d", -- scan source code looking for errors
+                -- "lua_ls", -- Lua
+                -- "jdtls", -- Lua
+                -- "pyright", -- Python
+                -- "clangd", -- lsp for c, c++
+		"html",
+		"cssls",
+		"tsserver"
             },
         })
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier", -- prettier formatter
-                "stylua", -- lua formatter
-                "isort", -- python formatter
-                "black", -- python formatter
-                "mypy", -- static type checker
-                "ruff", -- Python linter and code formatter
+                -- "prettier", -- prettier formatter
+                -- "stylua", -- lua formatter
+                -- "isort", -- python formatter
+                -- "black", -- python formatter
+                -- "mypy", -- static type checker
+                -- "ruff", -- Python linter and code formatter
             },
         })
 

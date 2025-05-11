@@ -190,7 +190,9 @@ return {
                     },
                 },
             })
+
             local servers = {
+
                 pyright = {
                     capabilities = {
                         offsetEncoding = "utf-8",
