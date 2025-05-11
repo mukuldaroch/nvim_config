@@ -8,47 +8,25 @@ return {
         vim.api.nvim_create_augroup("AlphaDashboard", { clear = true })
 
         -- ------------------------------------------------------------------------
-        --Autocommand to hide statusline when alpha is active
-        --vim.api.nvim_create_autocmd("FileType", {
-        --	pattern = "alpha",
-        --	group = "AlphaDashboard",
-        --	callback = function()
-        --		-- Hide the statusline by setting laststatus to 0
-        --		--vim.opt.laststatus = 0
-        --		-- Optional: You can also clear the statusline text
-        --		vim.opt_local.statusline = ""
-        --		vim.cmd([[ highlight Normal guibg=NONE ctermbg=NONE ]])
-        --		vim.cmd([[ highlight EndOfBuffer guibg=NONE ctermbg=NONE ]]) -- Transparent background
-        --	end,
-        --})
-        -- Autocommand to hide statusline when alpha is active
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "alpha",
-            group = vim.api.nvim_create_augroup("AlphaDashboard", { clear = true }), -- Create a group for the autocommands
-            callback = function()
-                vim.opt.laststatus = 0 -- Hide the statusline
-            end,
-        })
-        -- ------------------------------------------------------------------------
-        -- Autocommand to restore the statusline after leaving alpha
-        vim.api.nvim_create_autocmd("BufUnload", {
-            pattern = "<buffer>",
-            group = "AlphaDashboard",
-            callback = function()
-                vim.opt.laststatus = 3 -- Restore the statusline to the default value
-            end,
-        })
-        --Autocommand to restore the statusline when leaving alpha
-        --vim.api.nvim_create_autocmd("BufUnload", {
-        --	pattern = "<buffer>",
-        --	group = "AlphaDashboard",
-        --	callback = function()
-        --		vim.opt.laststatus = 2 -- Restore laststatus to its default value
-        --		vim.cmd([[ highlight Normal guibg=#1e1e1e ctermbg=0 ]])
-        --		vim.cmd([[ highlight EndOfBuffer guibg=#1e1e1e ctermbg=0 ]]) -- Restore background color to default
-        --	end,
-        --})
-        -- ------------------------------------------------------------------------
+        -- -- Autocommand to hide statusline when alpha is active
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --     pattern = "alpha",
+        --     group = vim.api.nvim_create_augroup("AlphaDashboard", { clear = true }), -- Create a group for the autocommands
+        --     callback = function()
+        --         vim.opt.laststatus = 0 -- Hide the statusline
+        --     end,
+        -- })
+        --
+        -- -- ------------------------------------------------------------------------
+        -- -- Autocommand to restore the statusline after leaving alpha
+        -- vim.api.nvim_create_autocmd("BufUnload", {
+        --     pattern = "<buffer>",
+        --     group = "AlphaDashboard",
+        --     callback = function()
+        --         vim.opt.laststatus = 3 -- Restore the statusline to the default value
+        --     end,
+        -- })
+        --
         -- ----------------------------------------------------------------------------------------------------------------------------------------------------
         local space = "   "
 

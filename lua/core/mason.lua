@@ -27,14 +27,21 @@ return {
         mason_lspconfig.setup({
             -- list of servers for mason to install
             ensure_installed = {
-                -- "eslint_d", -- scan source code looking for errors
-                -- "lua_ls", -- Lua
-                -- "jdtls", -- Lua
-                -- "pyright", -- Python
-                -- "clangd", -- lsp for c, c++
-		"html",
-		"cssls",
-		"tsserver"
+                "eslint_d", -- scan source code looking for errors
+                "lua_ls", -- Lua
+                "html",
+                "cssls",
+                "tsserver",
+
+                -- ◍ css-lsp
+                -- ◍ eslint-lsp
+                -- ◍ eslint_d
+                -- ◍ html-lsp
+                -- ◍ lua-language-server
+                -- ◍ prettier
+                -- ◍ pyright
+                -- ◍ stylua
+                -- ◍ typescript-language-server
             },
         })
         mason_tool_installer.setup({

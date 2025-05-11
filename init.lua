@@ -6,12 +6,15 @@ require("remaps.remap")
 require("core.lazy")
 require("core.mason")
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.cmd("colorscheme carbonfox")
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
+-- Your custom scroll mappings
+vim.keymap.set("n", "<C-u>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-i>", "<C-u>zz", { noremap = true, silent = true })
+
+-- Remap jump back/forward to Ctrl-9 and Ctrl-0
+vim.keymap.set("n", "<C-,>", "<C-o>", { noremap = true, silent = true }) -- jump back
+vim.keymap.set("n", "<C-.>", "<C-i>", { noremap = true, silent = true }) -- jump forward
 
 -- Bind Ctrl+; to normal mode
 vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })

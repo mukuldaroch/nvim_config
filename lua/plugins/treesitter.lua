@@ -9,6 +9,9 @@ return {
 				-- working parsers = c , lua , python,
 				-- not working parsers = cpp
 				auto_install = true,
+				-- indent = {
+				-- 	enable = true,
+				-- },
 
 				highlight = {
 					enable = true,

@@ -1,16 +1,28 @@
 return {
-    "numToStr/Comment.nvim",
-    config = function()
-        require("Comment").setup()
+    {
+        "folke/todo-comments.nvim",
+        event = "VimEnter",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = { signs = false },
+    },
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
 
-        -- Custom keybindings with <leader>c
-        local api = require("Comment.api")
-        vim.keymap.set("n", "<leader>c", api.toggle.linewise.current, { desc = "Toggle Comment" })
-        vim.keymap.set(
-            "v",
-            "<leader>c",
-            "<ESC><CMD>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-            { desc = "Toggle Comment in Visual Mode" }
-        )
-    end,
+            local api = require("Comment.api")
+            local map = vim.keymap.set
+            local opts = { desc = "Toggle Comment" }
+
+            -- Normal mode
+            map("n", "<leader>c", api.toggle.linewise.current, opts)
+
+            -- Visual mode (use Lua function to preserve selection)
+            map("v", "<leader>c", function()
+                local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+                vim.api.nvim_feedkeys(esc, "nx", false)
+                api.toggle.linewise(vim.fn.visualmode())
+            end, opts)
+        end,
+    },
 }

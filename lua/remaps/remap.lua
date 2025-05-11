@@ -1,18 +1,28 @@
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true -- Use spaces instead of tabs
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "markdown",
-	callback = function()                                       -- Set the color for concealed text
-		vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
-		vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
-		vim.opt.conceallevel = 2
-	end,
+    pattern = "markdown",
+    callback = function() -- Set the color for concealed text
+        vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
+        vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
+        vim.opt.conceallevel = 2
+    end,
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*.md",
-	callback = function()
-		vim.cmd("highlight MarkdownHeader guibg=blue guifg=white gui=bold")
-		vim.cmd("syntax match MarkdownHeader /^# .*/")
-	end,
+    pattern = "*.md",
+    callback = function()
+        -- First, define the highlight exactly as you want
+        vim.cmd("highlight MarkdownHeader guibg=#006bb3 guifg=#ffffff gui=bold")
+
+        -- Match headers starting with any number of #
+        vim.cmd("syntax match MarkdownHeader /^#\\+ .*/ containedin=ALL")
+    end,
 })
 
 --NOTES
@@ -138,11 +148,11 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -152,21 +162,21 @@ local map = vim.keymap.set
 
 -- Insert mode key mappings
 map("i", "<C-b>", "<ESC>^i", { desc = "move to beginning of line" }) -- Move to the start of the line
-map("i", "<C-e>", "<End>", { desc = "move to end of line" })         -- Move to the end of the line
-map("i", "<C-h>", "<Left>", { desc = "move left" })                  -- Move cursor left
-map("i", "<C-l>", "<Right>", { desc = "move right" })                -- Move cursor right
-map("i", "<C-j>", "<Down>", { desc = "move down" })                  -- Move cursor down
-map("i", "<C-k>", "<Up>", { desc = "move up" })                      -- Move cursor up
+map("i", "<C-e>", "<End>", { desc = "move to end of line" }) -- Move to the end of the line
+map("i", "<C-h>", "<Left>", { desc = "move left" }) -- Move cursor left
+map("i", "<C-l>", "<Right>", { desc = "move right" }) -- Move cursor right
+map("i", "<C-j>", "<Down>", { desc = "move down" }) -- Move cursor down
+map("i", "<C-k>", "<Up>", { desc = "move up" }) -- Move cursor up
 
 -- Normal mode key mappings
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" })                   -- Clear search highlights
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" }) -- Clear search highlights
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })                       -- Switch to left window
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })                      -- Switch to right window
-map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })                       -- Switch to window below
-map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })                         -- Switch to window above
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" }) -- Switch to left window
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" }) -- Switch to right window
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down" }) -- Switch to window below
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up" }) -- Switch to window above
 
-map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" })                            -- Save file
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" }) -- Save file
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true }) -- to move to the split on the left
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true }) -- to move to the split below
