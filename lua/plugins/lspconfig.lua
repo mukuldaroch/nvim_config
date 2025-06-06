@@ -206,6 +206,10 @@ return {
             capabilities = capabilities, -- Optional, if you want to use any additional capabilities
         })
 
+        require('lspconfig').cssls.setup({
+            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        })
+
         require("lspconfig").pyright.setup({
             capabilities = { offsetEncoding = "utf-8" },
             settings = {

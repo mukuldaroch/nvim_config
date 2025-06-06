@@ -5,17 +5,29 @@ return {
         require("toggleterm").setup({})
         local Terminal = require("toggleterm.terminal").Terminal
 
-        -------------------------------------------------------------------------------
         -- Create a cached terminal instance for general use
-        local terminal = Terminal:new({
+        local vertial_terminal = Terminal:new({
             shell = vim.o.shell,
             direction = "float",
             float_opts = {
                 border = { "", "", "", "", "", "", "", "│" },
-                -- width = math.floor(vim.o.columns * 0.4),
-                -- height = vim.o.lines,
-                -- col = vim.o.columns - math.floor(vim.o.columns * 0.4),
-                -- row = 0,
+                width = math.floor(vim.o.columns * 0.4),
+                height = vim.o.lines,
+                col = vim.o.columns - math.floor(vim.o.columns * 0.4),
+                row = 0,
+            },
+        })
+        -------------------------------------------------------------------------------
+        -- Create a cached terminal instance for general use
+        local full_teminal = Terminal:new({
+            shell = vim.o.shell,
+            direction = "float",
+            float_opts = {
+                -- border = { "", "─", "", "", "", "─", "", "" },
+                border = { "", "", "", "", "", "=", "", "" },
+                width = vim.o.columns,
+                height = vim.o.lines,
+                row = 0,
             },
         })
         -------------------------------------------------------------------------------
@@ -74,7 +86,8 @@ return {
             local vertical_terminal = Terminal:new({
                 direction = "float",
                 float_opts = {
-                    border = { "", "─", "", "", "", "─", "", "" },
+                    -- border = { "", "─", "", "", "", "─", "", "" },
+                    border = { "", "", "", "", "", "─", "", "" },
                     width = vim.o.columns,
                     height = vim.o.lines,
                     row = 0,
@@ -88,7 +101,7 @@ return {
 
         -------------------------------------------------------------------------------
         -- Function to run Python or C/C++ files in a vertical terminal
-        function _G.run_code_in_vertical_terminal()
+        function _G.run_code_vertically()
             local extension = vim.fn.expand("%:e")
             local file = vim.fn.bufname("%")
             local command
@@ -132,8 +145,12 @@ return {
 
         -------------------------------------------------------------------------------
         -- Function to toggle the general terminal
-        function _G.toggle_terminal()
-            terminal:toggle()
+        function _G.toggle_vterminal_terminal()
+            vertial_terminal:toggle()
+        end
+
+        function _G.toggle_full_terminal()
+            full_teminal:toggle()
         end
 
         -- Function to toggle Lazygit
@@ -144,14 +161,13 @@ return {
         -------------------------------------------------------------------------------
 
         -- Keybindings
-        vim.api.nvim_set_keymap("n", "<leader>t", ":lua toggle_terminal ()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>tt", ":lua toggle_full_terminal()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>t", ":lua toggle_vterminal_terminal()<CR>",
+            { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>l", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap(
-            "n",
-            "<leader>r",
-            ":lua run_code_in_vertical_terminal()<CR>",
-            { noremap = true, silent = true }
-        )
+        vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_vertically()<CR>",
+            { noremap = true, silent = true })
+        --
     end,
 }
