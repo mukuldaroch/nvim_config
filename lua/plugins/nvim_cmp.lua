@@ -5,11 +5,11 @@ return {
     event = "InsertEnter",
     dependencies = {
         -- cmp sources plugins
-        "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
-        "hrsh7th/cmp-buffer", -- Buffer completions
-        "hrsh7th/cmp-path", -- Path completions
-        "hrsh7th/cmp-cmdline", -- Command-line completions
-        "L3MON4D3/LuaSnip", -- Snippet engine
+        "hrsh7th/cmp-nvim-lsp",     -- LSP source for nvim-cmp
+        "hrsh7th/cmp-buffer",       -- Buffer completions
+        "hrsh7th/cmp-path",         -- Path completions
+        "hrsh7th/cmp-cmdline",      -- Command-line completions
+        "L3MON4D3/LuaSnip",         -- Snippet engine
         "saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
 
         -- Autopairing of (){}[] etc
