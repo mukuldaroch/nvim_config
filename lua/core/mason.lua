@@ -28,23 +28,26 @@ return {
             -- list of servers for mason to install
             ensure_installed = {
                 "eslint_d", -- scan source code looking for errors
-                "lua_ls",   -- Lua
+                "lua_ls", -- Lua
                 "html",
                 "cssls",
                 "tsserver",
                 -- Installed
-                --   ◍ css-lsp
-                --   ◍ cssmodules-language-server
-                --   ◍ eslint-lsp
-                --   ◍ eslint_d
-                --   ◍ html-lsp
-                --   ◍ htmlhint
-                --   ◍ lua-language-server
-                --   ◍ prettier
-                --   ◍ pyright
-                --   ◍ stylelint
-                --   ◍ stylua
-                --   ◍ typescript-language-server
+                -- ◍ sqls
+                -- ◍ css - lsp
+                -- ◍ cssmodules - language - server
+                -- ◍ eslint - lsp
+                -- ◍ eslint_d
+                -- ◍ html - lsp
+                -- ◍ htmlhint
+                -- ◍ lua - language - server
+                -- ◍ marksman
+                -- ◍ prettier
+                -- ◍ pyright
+                -- ◍ stylelint
+                -- ◍ stylua
+                -- ◍ typescript - language - server
+                --   marksman
             },
         })
         mason_tool_installer.setup({

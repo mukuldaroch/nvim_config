@@ -7,33 +7,66 @@ require("core.lazy")
 require("core.mason")
 
 vim.cmd("colorscheme carbonfox")
-
--- Your custom scroll mappings
-vim.keymap.set("n", "<C-u>", "<C-d>zz", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-i>", "<C-u>zz", { noremap = true, silent = true })
-
--- Remap jump back/forward to Ctrl-9 and Ctrl-0
-vim.keymap.set("n", "<C-,>", "<C-o>", { noremap = true, silent = true }) -- jump back
-vim.keymap.set("n", "<C-.>", "<C-i>", { noremap = true, silent = true }) -- jump forward
-
--- Bind Ctrl+; to normal mode
-vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
-
-vim.g.mapleader = " " -- Set leader key to space (change if needed)
-vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>h", ":split<CR>", { noremap = true, silent = true })
-
-local notify = vim.notify
-vim.notify = function(msg, ...)
-    if msg:match("warning: multiple different client offset_encodings") then
-        return
-    end
-
-    notify(msg, ...)
-end
+-- Set cmdheight to 1 when macro recording starts
+vim.api.nvim_create_autocmd("RecordingEnter", {
+    callback = function()
+        vim.opt.cmdheight = 1
+    end,
+})
 
 vim.cmd([[
     hi Normal guibg=NONE ctermbg=NONE
-    hi NormalNC guibg=NONE ctermbg=NONE
+       hi NormalNC guibg=NONE ctermbg=NONE
     hi EndOfBuffer guibg=NONE ctermbg=NONE
 ]])
+
+-- -- Revert cmdheight to 0 after macro recording ends
+-- vim.api.nvim_create_autocmd("RecordingLeave", {
+--     callback = function()
+--         -- same reg_recording delay BS
+--         local timer = vim.loop.new_timer()
+--         timer:start(
+--             50,
+--             0,
+--             vim.schedule_wrap(function()
+--                 vim.opt.cmdheight = 0
+--             end)
+--         )
+--     end,
+-- })
+
+-- Hide cmdline when recording starts
+vim.api.nvim_create_autocmd("RecordingEnter", {
+    callback = function()
+        -- Delay slightly to override Neovim's default behavior
+        local timer = vim.loop.new_timer()
+        timer:start(
+            50,
+            0,
+            vim.schedule_wrap(function()
+                vim.opt.cmdheight = 0
+            end)
+        )
+    end,
+})
+
+local function macro_recording()
+    local reg = vim.fn.reg_recording()
+    if reg == "" then
+        return ""
+    else
+        return " Recording @" .. reg
+    end
+end
+require("lualine").setup({
+    sections = {
+        lualine_x = {
+            {
+                macro_recording,
+                color = { fg = "#ff0000", gui = "bold" },
+            },
+            "branch",
+            "diff",
+        }, -- Show file encoding, format (e.g., unix), and type
+    },
+})

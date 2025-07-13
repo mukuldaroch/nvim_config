@@ -40,7 +40,7 @@ return {
             float_opts = {
                 border = "none",
                 width = vim.o.columns, -- Convert to integer
-                height = vim.o.lines,  -- Convert to integer
+                height = vim.o.lines, -- Convert to integer
             },
             on_open = function(term)
                 vim.cmd("startinsert!") -- Start in insert mode
@@ -78,6 +78,8 @@ return {
                 command = "clear && brave " .. file
             elseif extension == "js" then
                 command = "clear && node " .. file
+            elseif extension == "sh" then
+                command = "clear && bash " .. file
             else
                 command = "clear"
                 -- automatically opens the terminal
@@ -122,6 +124,8 @@ return {
                 command = "clear && brave " .. file
             elseif extension == "js" then
                 command = "clear && node " .. file
+            elseif extension == "sh" then
+                command = "clear && bash " .. file
             else
                 command = "clear"
             end
@@ -161,13 +165,16 @@ return {
         -------------------------------------------------------------------------------
 
         -- Keybindings
-        vim.api.nvim_set_keymap("n", "<leader>tt", ":lua toggle_full_terminal()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>t", ":lua toggle_vterminal_terminal()<CR>",
-            { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>T", ":lua toggle_full_terminal()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap(
+            "n",
+            "<leader>t",
+            ":lua toggle_vterminal_terminal()<CR>",
+            { noremap = true, silent = true }
+        )
         vim.api.nvim_set_keymap("n", "<leader>l", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_vertically()<CR>",
-            { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_vertically()<CR>", { noremap = true, silent = true })
         --
     end,
 }

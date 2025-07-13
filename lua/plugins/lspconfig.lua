@@ -4,6 +4,7 @@ return {
 
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
+        --
         -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
         { "williamboman/mason.nvim", opts = {} },
         "williamboman/mason-lspconfig.nvim",
@@ -13,7 +14,7 @@ return {
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         --{ "j-hui/fidget.nvim", opts = {} },
 
-        { "j-hui/fidget.nvim",       opts = {} },
+        { "j-hui/fidget.nvim", opts = {} },
 
         -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
@@ -64,7 +65,7 @@ return {
 
                 -- Rename the variable under your cursor.
                 --  Most Language Servers support renaming across files, etc.
-                map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+                -- map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
                 -- Execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
@@ -148,7 +149,7 @@ return {
                 "--compile-commands-dir=.",
             },
             capabilities = {
-                offsetEncoding = { "utf-8" },                                                             -- helps with some LSP encoding issues
+                offsetEncoding = { "utf-8" }, -- helps with some LSP encoding issues
             },
             root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"), -- better project root detection
             filetypes = { "h", "c", "cpp", "objc", "objcpp" },
@@ -165,13 +166,20 @@ return {
                     completion = {
                         callSnippet = "Replace",
                     },
-                    diagnostics = {
-                        globals = { "vim" }, -- Tell LSP that `vim` is a global variable
-                    },
+                    -- diagnostics = {
+                    --     globals = { "vim" }, -- Tell LSP that `vim` is a global variable
+                    -- },
                 },
             },
         })
 
+        require("lspconfig").marksman.setup({
+            cmd = { vim.fn.stdpath("data") .. "/mason/bin/marksman" }, -- or just "marksman" if it's globally installed
+            filetypes = { "markdown", "markdown.mdx" },
+            capabilities = {
+                offsetEncoding = "utf-8",
+            },
+        })
         require("lspconfig").jdtls.setup({
             cmd = { "jdtls" },
             root_dir = require("lspconfig").util.root_pattern(".git", "pom.xml", "build.gradle"),
@@ -206,8 +214,8 @@ return {
             capabilities = capabilities, -- Optional, if you want to use any additional capabilities
         })
 
-        require('lspconfig').cssls.setup({
-            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        require("lspconfig").cssls.setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
         })
 
         require("lspconfig").pyright.setup({
@@ -223,6 +231,22 @@ return {
             },
         })
 
+        require("lspconfig").sqls.setup({
+            on_attach = function(client, bufnr)
+                -- disable sqls formatting to prevent conflicts
+                client.server_capabilities.documentFormattingProvider = false
+            end,
+            settings = {
+                sqls = {
+                    connections = {
+                        {
+                            driver = "sqlite3",
+                            dataSourceName = "bro.db",
+                        },
+                    },
+                },
+            },
+        })
         -- local servers = {
         -- }
         vim.diagnostic.config({
@@ -239,8 +263,7 @@ return {
                 border = "rounded",
             },
         })
-
         vim.o.updatetime = 300
-        vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })]])
+        -- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })]])
     end,
 }

@@ -1,6 +1,6 @@
 return {
     "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
         local null_ls = require("null-ls")
 
@@ -30,21 +30,13 @@ return {
                 }),
 
                 -- ESLint
-                -- null_ls.builtins.diagnostics.eslint_d.with({
-                --     filetypes = {
-                --         "javascript", "javascriptreact",
-                --         "typescript", "typescriptreact",
-                --     },
-                -- }),
                 -- null_ls.builtins.code_actions.eslint_d,
 
                 -- Python
                 null_ls.builtins.formatting.black,
 
                 -- Lua
-                null_ls.builtins.formatting.stylua.with({
-                    extra_args = { "--style={IndentWidth: 4, UseTab: Never}" },
-                }),
+                null_ls.builtins.formatting.stylua,
 
                 -- C/C++
                 null_ls.builtins.formatting.clang_format.with({
@@ -57,6 +49,9 @@ return {
 
                 -- YAML
                 null_ls.builtins.formatting.yamlfmt,
+                --sql
+                null_ls.builtins.formatting.pg_format,
+                -- null_ls.builtins.formatting.sqlfluff,
             },
             on_attach = on_attach,
         })

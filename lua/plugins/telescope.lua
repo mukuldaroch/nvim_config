@@ -39,12 +39,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
                 -- config_key = value,
                 layout_config = {
                     horizontal = {
-                        width = 0.9,         -- Adjust the width as a proportion of the total window width (0.8 means 80%)
-                        height = 0.9,        -- Adjust the height as a proportion of the total window height (0.8 means 80%)
+                        width = 0.9, -- Adjust the width as a proportion of the total window width (0.8 means 80%)
+                        height = 0.9, -- Adjust the height as a proportion of the total window height (0.8 means 80%)
                         preview_width = 0.6, -- Adjust the width of the preview window
                     },
                     vertical = {
-                        width = 0.2,  -- Adjust the width for vertical layout
+                        width = 0.2, -- Adjust the width for vertical layout
                         height = 0.2, -- Adjust the height for vertical layout
                     },
                     -- Other layout configurations can go here
