@@ -1,21 +1,21 @@
 {
-  "languageserver": {
-    "python": {
-      "command": "python",
-      "args": ["-m", "pyright-langserver", "--stdio"],
-      "filetypes": ["python"],
-      "settings": {
+    "languageserver": {
         "python": {
-          "analysis": {
-            "typeCheckingMode": "strict",
-            "autoSearchPaths": true,
-            "useLibraryCodeForTypes": true
-          }
+            "command": "python",
+            "args": ["-m", "pyright-langserver", "--stdio"],
+            "filetypes": ["python"],
+            "settings": {
+                "python": {
+                    "analysis": {
+                        "typeCheckingMode": "strict",
+                        "autoSearchPaths": true,
+                        "useLibraryCodeForTypes": true
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "python.formatting.provider": "black",
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true
+    },
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }

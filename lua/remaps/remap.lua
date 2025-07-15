@@ -1,9 +1,27 @@
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true -- Use spaces instead of tabs
---------------------------------------------------------------------------------------------------------
+-- -- Your custom scroll mappings
+-- vim.keymap.set("n", "<C-u>", "<C-d>zz", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-i>", "<C-u>zz", { noremap = true, silent = true })
+--
+-- -- Remap jump back/forward to Ctrl-9 and Ctrl-0
+vim.keymap.set("n", "<C-,>", "<C-o>", { noremap = true, silent = true }) -- jump back
+vim.keymap.set("n", "<C-.>", "<C-i>", { noremap = true, silent = true }) -- jump forward
+
+-- Bind Ctrl+; to normal mode
+vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
+
+vim.g.mapleader = " " -- Set leader key to space (change if needed)
+vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>h", ":split<CR>", { noremap = true, silent = true })
+
+local notify = vim.notify
+vim.notify = function(msg, ...)
+    if msg:match("warning: multiple different client offset_encodings") then
+        return
+    end
+
+    notify(msg, ...)
+end
+
 --------------------------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
@@ -14,27 +32,32 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*.md",
-    callback = function()
-        -- First, define the highlight exactly as you want
-        vim.cmd("highlight MarkdownHeader guibg=#006bb3 guifg=#ffffff gui=bold")
+--   fg = "#FF4500",
 
-        -- Match headers starting with any number of #
-        vim.cmd("syntax match MarkdownHeader /^#\\+ .*/ containedin=ALL")
-    end,
+-- vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", {
+-- 	fg = "#000000",
+-- 	bg = "#10B981",
+-- 	-- bold = true,
+-- })
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", {
+    fg = "#ffffff",
+    bg = "#0530a3",
+    -- bold = true,
 })
-
---NOTES
-vim.cmd([[
-  highlight Notes ctermfg=Yellow guifg=Yellow
-  autocmd BufRead,BufNewFile *.txt,*.md,*.log syntax match Notes /\c\<NOTES\>/
-]])
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", {
+    fg = "#ffffff",
+    bg = "#3862d1",
+    -- bold = true,
+})
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
+    fg = "#ffffff",
+    bg = "#5c75b8",
+    -- bold = true,
+})
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.api.nvim_set_keymap("n", "q", ":q<CR>", { noremap = true, silent = true })
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------
 vim.g.mapleader = " "
@@ -43,11 +66,6 @@ vim.g.maplocalleader = " "
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
-
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
 
 -- Make line numbers default
 vim.opt.number = true
@@ -110,39 +128,13 @@ vim.opt.scrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+-- vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+-- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+-- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 -- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
--- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
---vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
---vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
---vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
---vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -193,4 +185,4 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 -- hides the command line until you need it
 vim.opt.cmdheight = 0
 -- ---------------------------------------------------------------------------------------------------------------------
-vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
