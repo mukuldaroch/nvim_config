@@ -11,7 +11,7 @@ vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
 
 vim.g.mapleader = " " -- Set leader key to space (change if needed)
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>h", ":split<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
 
 local notify = vim.notify
 vim.notify = function(msg, ...)

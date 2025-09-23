@@ -50,7 +50,43 @@ return { -- Fuzzy Finder (files, lsp, etc)
                     -- Other layout configurations can go here
                 },
                 -- Other Telescope default configurations
+
+                -- ------------------------------------------------------------------------
+                -- require("telescope").setup({
+                --     defaults = {
+                --         file_ignore_patterns = {
+                --             "%.git/",
+                --             "%.git/*",
+                --             "%.vs/",
+                --             "%.vs/*",
+                --             "%out/",
+                --             "%third_party/",
+                --             "%out/*",
+                --             "Makefile",
+                --             "node_modules/",
+                --             "node_modules/*",
+                --             "vite.config.js",
+                --             "eslint.config.js",
+                --             "package.json",
+                --             "package%-lock%.json"
+                --
+                --             --	"%.gitignore",
+                --         },
+                --     },
+                --     pickers = {},
+                --     extensions = {},
+                -- }),
+                hidden = true, -- 👈 Show hidden files!
+                file_ignore_patterns = {
+                    "node_modules",
+                    "target",
+                    "%.git",
+                    -- "%.vs",
+                    -- "out",
+                    -- "third_party",
+                },
             },
+
             pickers = {
                 -- Default configuration for builtin pickers goes here:
                 -- picker_name = {
