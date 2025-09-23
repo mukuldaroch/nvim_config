@@ -33,6 +33,7 @@ return {
                 "cssls",
                 "tsserver",
                 -- Installed
+                -- ◍ lemminx
                 -- ◍ sqls
                 -- ◍ css - lsp
                 -- ◍ cssmodules - language - server

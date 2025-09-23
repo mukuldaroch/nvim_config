@@ -73,6 +73,9 @@ return {
 
                 -- Opens a popup that displays documentation about the word under your cursor
                 --  See `:help K` for why this keymap.
+
+                -- Set highlight colors (you can change these to match your theme)
+
                 map("K", vim.lsp.buf.hover, "Hover Documentation")
 
                 -- WARN: This is not Goto Definition, this is Goto Declaration.
@@ -249,6 +252,52 @@ return {
         })
         -- local servers = {
         -- }
+        require("lspconfig").tailwindcss.setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            filetypes = {
+                "html",
+                "css",
+                "scss",
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
+            init_options = {
+                userLanguages = {
+                    javascript = "javascript",
+                    typescript = "typescript",
+                    javascriptreact = "javascript",
+                    typescriptreact = "typescript",
+                },
+            },
+            root_dir = require("lspconfig").util.root_pattern(
+                "tailwind.config.js",
+                "tailwind.config.ts",
+                "postcss.config.js",
+                "package.json"
+            ),
+        })
+        require("lspconfig").emmet_ls.setup({
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            filetypes = {
+                "html",
+                "css",
+                "scss",
+                "javascript",
+                "javascriptreact",
+                "typescriptreact",
+                -- anything with JSX basically
+            },
+            init_options = {
+                html = {
+                    options = {
+                        -- For React, you want `className` instead of `class`
+                        ["bem.enabled"] = true,
+                    },
+                },
+            },
+        })
         vim.diagnostic.config({
             virtual_text = {
                 prefix = "●",

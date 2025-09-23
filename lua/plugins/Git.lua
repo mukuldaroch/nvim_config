@@ -67,31 +67,5 @@ return {
             end)
         end,
     },
-    -- ------------------------------------------------------------------------
-    require("telescope").setup({
-        defaults = {
-            file_ignore_patterns = {
-                "%.git/",
-                "%.git/*",
-                "%.vs/",
-                "%.vs/*",
-                "%out/",
-                "%third_party/",
-                "%out/*",
-                -- "%CMakeFiles/*",
-                -- "CMakeCache.txt",
-                -- "cmake_install.cmake",
-                -- "CMakeLists.txt",
-                -- "CMakePresets.json",
-                -- "compile_commands.json",
-                "Makefile",
-                "node_modules/",
-                "node_modules/*",
-                --	"%.gitignore",
-            },
-        },
-        pickers = {},
-        extensions = {},
-    }),
     -- ----------------------------------
 }

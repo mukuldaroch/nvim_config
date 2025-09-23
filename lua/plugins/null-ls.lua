@@ -28,7 +28,6 @@ return {
                         "markdown",
                     },
                 }),
-
                 -- ESLint
                 -- null_ls.builtins.code_actions.eslint_d,
 
@@ -50,8 +49,17 @@ return {
                 -- YAML
                 null_ls.builtins.formatting.yamlfmt,
                 --sql
-                null_ls.builtins.formatting.pg_format,
                 -- null_ls.builtins.formatting.sqlfluff,
+                null_ls.builtins.formatting.pg_format,
+
+                --xml
+                null_ls.builtins.formatting.xmllint.with({
+                    command = "sh",
+                    args = {
+                        "-c",
+                        "xmllint --format - | sed -E 's/^( +)/\\1\\1\\1\\1/'",
+                    },
+                }),
             },
             on_attach = on_attach,
         })
