@@ -52,6 +52,9 @@ return {
                 -- null_ls.builtins.formatting.sqlfluff,
                 null_ls.builtins.formatting.pg_format,
 
+                --bash
+                null_ls.builtins.formatting.shfmt,
+
                 --xml
                 null_ls.builtins.formatting.xmllint.with({
                     command = "sh",

@@ -183,24 +183,6 @@ return {
                 offsetEncoding = "utf-8",
             },
         })
-        require("lspconfig").jdtls.setup({
-            cmd = { "jdtls" },
-            root_dir = require("lspconfig").util.root_pattern(".git", "pom.xml", "build.gradle"),
-            capabilities = {
-                -- Add any additional capabilities if needed
-                offsetEncoding = "utf-8",
-            },
-            filetypes = { "java" },
-            single_file_support = true,
-            settings = {
-                java = {
-                    -- Specify additional configurations for the Java LSP here
-                    format = {
-                        enabled = true,
-                    },
-                },
-            },
-        })
 
         require("lspconfig").ts_ls.setup({
             root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),

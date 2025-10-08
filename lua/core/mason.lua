@@ -33,6 +33,8 @@ return {
                 "cssls",
                 "tsserver",
                 -- Installed
+                -- ◍ jdtls
+                -- ◍ yamlfmt (keywords: yaml)
                 -- ◍ lemminx
                 -- ◍ sqls
                 -- ◍ css - lsp

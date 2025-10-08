@@ -42,10 +42,11 @@ return {
                     winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
                 }),
                 -- Documentation window with custom borders--
-                documentation = cmp.config.window.bordered({
-                    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                    winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder",
-                }),
+                -- documentation = cmp.config.window.bordered({
+                --     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                --     winhighlight = "Normal:CmpDoc,FloatBorder:CmpDocBorder",
+                -- }),
+                documentation = cmp.config.disable,
             },
             snippet = {
                 expand = function(args)
@@ -54,12 +55,12 @@ return {
             },
             completion = { completeopt = "menu,menuone,noinsert" },
             mapping = cmp.mapping.preset.insert({
-                ["<C-n>"] = cmp.mapping.select_next_item(),
-                ["<C-p>"] = cmp.mapping.select_prev_item(),
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<C-e>"] = cmp.mapping.close(),
+                ["<C-j>"] = cmp.mapping.select_next_item(),
+                ["<C-k>"] = cmp.mapping.select_prev_item(),
+                -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                -- ["<C-Space>"] = cmp.mapping.complete(),
+                -- ["<C-e>"] = cmp.mapping.close(),
                 ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
                 ["<Tab>"] = cmp.mapping(function(fallback)

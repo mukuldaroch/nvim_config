@@ -185,4 +185,4 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 -- hides the command line until you need it
 vim.opt.cmdheight = 0
 -- ---------------------------------------------------------------------------------------------------------------------
--- vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
