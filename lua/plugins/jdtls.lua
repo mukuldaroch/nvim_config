@@ -15,7 +15,7 @@ return {
         local extendedClientCapabilities = jdtls.extendedClientCapabilities
 
         -- =========================
-        -- 🧩 Full Lombok + JDTLS Config
+        -- Full Lombok + JDTLS Config
         -- =========================
         local config = {
             cmd = {
@@ -25,54 +25,55 @@ return {
                 "-Declipse.product=org.eclipse.jdt.ls.core.product",
                 "-Dlog.protocol=true",
                 "-Dlog.level=ALL",
-                "-Xmx1g",
+                "-Xmx2g",
                 "--add-modules=ALL-SYSTEM",
                 "--add-opens",
                 "java.base/java.util=ALL-UNNAMED",
                 "--add-opens",
                 "java.base/java.lang=ALL-UNNAMED",
 
-                -- ✅ Lombok Agent for Annotation Magic
+                -- Lombok Agent
                 "-javaagent:"
                     .. home
                     .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
 
-                -- ✅ JDTLS launcher .jar
+                -- JDTLS launcher
                 "-jar",
                 vim.fn.glob(
                     home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
                 ),
 
-                -- ✅ Correct configuration for Linux
+                -- Linux config
                 "-configuration",
                 home .. "/.local/share/nvim/mason/packages/jdtls/config_linux",
 
-                -- ✅ Workspace per project
+                -- Workspace per project
                 "-data",
                 workspace_dir,
             },
 
-            -- ✅ Root dir detection
+            -- Root dir detection (Gradle)
             root_dir = require("jdtls.setup").find_root({
                 ".git",
-                "mvnw",
                 "gradlew",
-                "pom.xml",
                 "build.gradle",
             }),
 
             -- =========================
-            -- ⚙️ Java Language Settings
+            -- Java Language Settings
             -- =========================
             settings = {
                 java = {
                     signatureHelp = { enabled = true },
                     extendedClientCapabilities = extendedClientCapabilities,
-                    maven = { downloadSources = true },
                     referencesCodeLens = { enabled = true },
                     references = { includeDecompiledSources = true },
                     inlayHints = { parameterNames = { enabled = "all" } },
-                    format = { enabled = false }, -- disable LSP formatting (use prettier etc)
+                    format = { enabled = false }, -- disable LSP formatting
+                    projectSources = {
+                        vim.fn.getcwd() .. "/src/main/java",
+                        vim.fn.getcwd() .. "/build/generated/sources/annotationProcessor/java/main",
+                    },
                 },
             },
 
@@ -82,49 +83,8 @@ return {
         }
 
         -- =========================
-        -- 🚀 Start or Attach JDTLS
+        -- Start or Attach JDTLS
         -- =========================
         jdtls.start_or_attach(config)
-
-        -- =========================
-        -- 🧠 Java Keymaps
-        -- =========================
-        vim.keymap.set(
-            "n",
-            "<leader>co",
-            "<Cmd>lua require'jdtls'.organize_imports()<CR>",
-            { desc = "Organize Imports" }
-        )
-        vim.keymap.set(
-            "n",
-            "<leader>crv",
-            "<Cmd>lua require('jdtls').extract_variable()<CR>",
-            { desc = "Extract Variable" }
-        )
-        vim.keymap.set(
-            "v",
-            "<leader>crv",
-            "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-            { desc = "Extract Variable" }
-        )
-        vim.keymap.set(
-            "n",
-            "<leader>crc",
-            "<Cmd>lua require('jdtls').extract_constant()<CR>",
-            { desc = "Extract Constant" }
-        )
-        vim.keymap.set(
-            "v",
-            "<leader>crc",
-            "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
-            { desc = "Extract Constant" }
-        )
-        vim.keymap.set(
-            "v",
-            "<leader>crm",
-            "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-            { desc = "Extract Method" }
-        )
-
     end,
 }

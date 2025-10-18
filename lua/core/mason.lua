@@ -1,5 +1,11 @@
 return {
     "williamboman/mason.nvim",
+    opt = {
+        registries = {
+            "github:nvim-java/mason-registry",
+            "github:mason-org/mason-registry",
+        },
+    },
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
