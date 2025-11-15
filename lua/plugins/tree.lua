@@ -64,7 +64,6 @@ return {
             vim.keymap.set("n", "O", api.node.open.no_window_picker, opts) --("Open: No Window Picker")
             vim.keymap.set("n", "p", api.fs.paste, opts) --("Paste")
             vim.keymap.set("n", "P", api.node.navigate.parent, opts) --("Parent Directory")
-            vim.keymap.set("n", "q", api.tree.close, opts) --("Close")
             vim.keymap.set("n", "r", api.fs.rename, opts) --("Rename")
             vim.keymap.set("n", "R", api.tree.reload, opts) --("Refresh")
             vim.keymap.set("n", "s", api.node.run.system, opts) --("Run System")

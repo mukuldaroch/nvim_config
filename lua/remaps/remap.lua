@@ -1,8 +1,32 @@
--- -- Your custom scroll mappings
--- vim.keymap.set("n", "<C-u>", "<C-d>zz", { noremap = true, silent = true })
--- vim.keymap.set("n", "<C-i>", "<C-u>zz", { noremap = true, silent = true })
---
--- -- Remap jump back/forward to Ctrl-9 and Ctrl-0
+-- CTRL + j → next tab
+vim.keymap.set("n", "<C-j>", function()
+	vim.cmd("tabnext")
+end, { desc = "Next Tab" })
+
+-- CTRL + k → previous tab
+vim.keymap.set("n", "<C-k>", function()
+	vim.cmd("tabprevious")
+end, { desc = "Previous Tab" })
+
+-- CTRL + t → new tab
+vim.keymap.set("n", "<C-t>", function()
+	local buf = vim.api.nvim_get_current_buf()
+	local file = vim.api.nvim_buf_get_name(buf)
+
+	if file ~= "" then
+		-- Open same file in a new tab
+		vim.cmd("tabnew " .. file)
+	else
+		-- If buffer has no name, just open empty tab
+		vim.cmd("tabnew")
+	end
+end, { desc = "New tab with same file" })
+
+-- CTRL + w → close tab (NOT window)
+vim.keymap.set("n", "<C-w>", function()
+	vim.cmd("tabclose")
+end, { desc = "Close Tab" })
+
 vim.keymap.set("n", "<C-,>", "<C-o>", { noremap = true, silent = true }) -- jump back
 vim.keymap.set("n", "<C-.>", "<C-i>", { noremap = true, silent = true }) -- jump forward
 
@@ -13,47 +37,7 @@ vim.g.mapleader = " " -- Set leader key to space (change if needed)
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
 
-local notify = vim.notify
-vim.notify = function(msg, ...)
-    if msg:match("warning: multiple different client offset_encodings") then
-        return
-    end
-
-    notify(msg, ...)
-end
-
 --------------------------------------------------------------------------------------------------------
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function() -- Set the color for concealed text
-        vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
-        vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
-        vim.opt.conceallevel = 2
-    end,
-})
-
---   fg = "#FF4500",
-
--- vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", {
--- 	fg = "#000000",
--- 	bg = "#10B981",
--- 	-- bold = true,
--- })
-vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", {
-    fg = "#ffffff",
-    bg = "#0530a3",
-    -- bold = true,
-})
-vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", {
-    fg = "#ffffff",
-    bg = "#3862d1",
-    -- bold = true,
-})
-vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
-    fg = "#ffffff",
-    bg = "#5c75b8",
-    -- bold = true,
-})
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -80,8 +64,6 @@ vim.opt.mouse = "a"
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.opt.clipboard = "unnamedplus"
 
 -- Enable break indent
@@ -109,8 +91,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
@@ -123,56 +103,37 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
--- vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Diagnostic keymaps
--- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
--- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
--- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
--- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- Ensure the leader key is set
-
 local map = vim.keymap.set
 
 -- Insert mode key mappings
-map("i", "<C-b>", "<ESC>^i", { desc = "move to beginning of line" }) -- Move to the start of the line
-map("i", "<C-e>", "<End>", { desc = "move to end of line" }) -- Move to the end of the line
-map("i", "<C-h>", "<Left>", { desc = "move left" }) -- Move cursor left
-map("i", "<C-l>", "<Right>", { desc = "move right" }) -- Move cursor right
-map("i", "<C-j>", "<Down>", { desc = "move down" }) -- Move cursor down
-map("i", "<C-k>", "<Up>", { desc = "move up" }) -- Move cursor up
+map("i", "<C-i>", "<ESC>^i", { desc = "move to beginning of line" }) -- Move to the start of the line
+map("i", "<C-a>", "<End>", { desc = "move to end of line" })         -- Move to the end of the line
+map("i", "<C-h>", "<Left>", { desc = "move left" })                  -- Move cursor left
+map("i", "<C-l>", "<Right>", { desc = "move right" })                -- Move cursor right
 
 -- Normal mode key mappings
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" }) -- Clear search highlights
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" })                   -- Clear search highlights
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" }) -- Switch to left window
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" }) -- Switch to right window
-map("n", "<C-j>", "<C-w>j", { desc = "switch window down" }) -- Switch to window below
-map("n", "<C-k>", "<C-w>k", { desc = "switch window up" }) -- Switch to window above
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })                       -- Switch to left window
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })                      -- Switch to right window
 
-map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" }) -- Save file
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" })                            -- Save file
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true }) -- to move to the split on the left
-vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true }) -- to move to the split below
-vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true, silent = true }) -- to move to the split above
+-- vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true }) -- to move to the split below
+-- vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true, silent = true }) -- to move to the split above
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true, silent = true }) -- to move to the split on the right
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Key mapping for :q (quit)
@@ -186,3 +147,45 @@ vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 vim.opt.cmdheight = 0
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
+-- ---------------------------------------------------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------------------------------------------------
+local notify = vim.notify
+vim.notify = function(msg, ...)
+	if msg:match("warning: multiple different client offset_encodings") then
+		return
+	end
+
+	notify(msg, ...)
+end
+--------------------------------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()                                       -- Set the color for concealed text
+		vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
+		vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
+		vim.opt.conceallevel = 2
+	end,
+})
+
+-- vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", {
+-- 	fg = "#000000",
+-- 	bg = "#10B981",
+-- 	-- bold = true,
+-- })
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", {
+	fg = "#ffffff",
+	bg = "#0530a3",
+	-- bold = true,
+})
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", {
+	fg = "#ffffff",
+	bg = "#3862d1",
+	-- bold = true,
+})
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
+	fg = "#ffffff",
+	bg = "#5c75b8",
+	-- bold = true,
+})
+--------------------------------------------------------------------------------------------------------

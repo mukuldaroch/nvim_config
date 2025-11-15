@@ -37,7 +37,7 @@ return {
                 lualine_y = {},
                 lualine_z = {},
             },
-            tabline = {}, -- No tabline configuration (can be configured if needed)
+            -- tabline = {}, -- No tabline configuration (can be configured if needed)
             extensions = { "nvim-tree", "quickfix", "fugitive" }, -- Load extensions for tree view, quickfix, and git
         })
     end,
