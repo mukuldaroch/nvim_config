@@ -97,7 +97,7 @@ return {
             view = {
                 adaptive_size = false,
                 side = "right",
-                width = 30,
+                width = 35,
                 preserve_window_proportions = true,
                 number = false, -- No line numbers
                 relativenumber = false, -- No relative numbers
