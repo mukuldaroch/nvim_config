@@ -7,7 +7,12 @@ return {
         local on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
                 vim.keymap.set("n", "<leader>f", function()
-                    vim.lsp.buf.format({ async = true })
+                    vim.lsp.buf.format({
+                        async = true,
+                        filter = function(client)
+                            return client.name == "null-ls"
+                        end,
+                    })
                 end, { buffer = bufnr, desc = "Format Code" })
             end
         end
@@ -53,7 +58,14 @@ return {
                 null_ls.builtins.formatting.pg_format,
 
                 --bash
-                null_ls.builtins.formatting.shfmt,
+                null_ls.builtins.formatting.shfmt.with({
+                    extra_args = {
+                        "-i",
+                        "4",
+                        "-ci",
+                        "-sr",
+                    },
+                }),
 
                 --xml
                 null_ls.builtins.formatting.xmllint.with({

@@ -133,7 +133,7 @@ return {
                     eclipse = { downloadSources = true },
                     maven = { downloadSources = true },
                     extendedClientCapabilities = extendedClientCapabilities,
-                    inlineHints = { pameterNames = { enabled = "all" } },
+                    inlineHints = { parameterNames = { enabled = "all" } },
                     signatureHelp = { enabled = true },
                     contentProvider = { preferred = "fernflower" },
                     sources = {
@@ -156,7 +156,7 @@ return {
                         filteredTypes = {
                             "com.sun.*",
                             "io.micrometer.shaded.*",
-                            "java.awt.*",
+                            -- "java.awt.*",
                             "jdk.*",
                             "sun.*",
                         },
@@ -172,11 +172,21 @@ return {
                     configuration = {
                         runtimes = {
                             -- Arch Linux official openJDKs specific paths.
+                            -- {
+                            --     name = "Java17-arch",
+                            --     path = "/usr/lib/jvm/java-17-openjdk/bin/",
+                            --     default = true,
+                            -- },
                             {
                                 name = "Java21-arch",
                                 path = "/usr/lib/jvm/java-21-openjdk/bin/",
                                 default = true,
                             },
+                            -- {
+                            --     name = "Java25-arch",
+                            --     path = "/usr/lib/jvm/java-25-openjdk/bin/",
+                            --     default = true,
+                            -- },
                         },
                     },
                 },

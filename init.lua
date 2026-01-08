@@ -20,21 +20,6 @@ vim.cmd([[
     hi EndOfBuffer guibg=NONE ctermbg=NONE
 ]])
 
--- -- Revert cmdheight to 0 after macro recording ends
--- vim.api.nvim_create_autocmd("RecordingLeave", {
---     callback = function()
---         -- same reg_recording delay BS
---         local timer = vim.loop.new_timer()
---         timer:start(
---             50,
---             0,
---             vim.schedule_wrap(function()
---                 vim.opt.cmdheight = 0
---             end)
---         )
---     end,
--- })
-
 -- Hide cmdline when recording starts
 vim.api.nvim_create_autocmd("RecordingEnter", {
     callback = function()

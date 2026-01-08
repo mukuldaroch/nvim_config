@@ -1,30 +1,30 @@
 -- CTRL + j → next tab
 vim.keymap.set("n", "<C-j>", function()
-	vim.cmd("tabnext")
+    vim.cmd("tabnext")
 end, { desc = "Next Tab" })
 
 -- CTRL + k → previous tab
 vim.keymap.set("n", "<C-k>", function()
-	vim.cmd("tabprevious")
+    vim.cmd("tabprevious")
 end, { desc = "Previous Tab" })
 
 -- CTRL + t → new tab
 vim.keymap.set("n", "<C-t>", function()
-	local buf = vim.api.nvim_get_current_buf()
-	local file = vim.api.nvim_buf_get_name(buf)
+    local buf = vim.api.nvim_get_current_buf()
+    local file = vim.api.nvim_buf_get_name(buf)
 
-	if file ~= "" then
-		-- Open same file in a new tab
-		vim.cmd("tabnew " .. file)
-	else
-		-- If buffer has no name, just open empty tab
-		vim.cmd("tabnew")
-	end
+    if file ~= "" then
+        -- Open same file in a new tab
+        vim.cmd("tabnew " .. file)
+    else
+        -- If buffer has no name, just open empty tab
+        vim.cmd("tabnew")
+    end
 end, { desc = "New tab with same file" })
 
 -- CTRL + w → close tab (NOT window)
 vim.keymap.set("n", "<C-w>", function()
-	vim.cmd("tabclose")
+    vim.cmd("tabclose")
 end, { desc = "Close Tab" })
 
 vim.keymap.set("n", "<C-,>", "<C-o>", { noremap = true, silent = true }) -- jump back
@@ -107,11 +107,11 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -119,17 +119,17 @@ local map = vim.keymap.set
 
 -- Insert mode key mappings
 map("i", "<C-i>", "<ESC>^i", { desc = "move to beginning of line" }) -- Move to the start of the line
-map("i", "<C-a>", "<End>", { desc = "move to end of line" })         -- Move to the end of the line
-map("i", "<C-h>", "<Left>", { desc = "move left" })                  -- Move cursor left
-map("i", "<C-l>", "<Right>", { desc = "move right" })                -- Move cursor right
+map("i", "<C-a>", "<End>", { desc = "move to end of line" }) -- Move to the end of the line
+map("i", "<C-h>", "<Left>", { desc = "move left" }) -- Move cursor left
+map("i", "<C-l>", "<Right>", { desc = "move right" }) -- Move cursor right
 
 -- Normal mode key mappings
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" })                   -- Clear search highlights
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "clear highlights" }) -- Clear search highlights
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })                       -- Switch to left window
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })                      -- Switch to right window
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left" }) -- Switch to left window
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right" }) -- Switch to right window
 
-map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" })                            -- Save file
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "save file" }) -- Save file
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true }) -- to move to the split on the left
 -- vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true }) -- to move to the split below
@@ -152,20 +152,20 @@ vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = 
 -- ---------------------------------------------------------------------------------------------------------------------
 local notify = vim.notify
 vim.notify = function(msg, ...)
-	if msg:match("warning: multiple different client offset_encodings") then
-		return
-	end
+    if msg:match("warning: multiple different client offset_encodings") then
+        return
+    end
 
-	notify(msg, ...)
+    notify(msg, ...)
 end
 --------------------------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "markdown",
-	callback = function()                                       -- Set the color for concealed text
-		vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
-		vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
-		vim.opt.conceallevel = 2
-	end,
+    pattern = "markdown",
+    callback = function() -- Set the color for concealed text
+        vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
+        vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
+        vim.opt.conceallevel = 2
+    end,
 })
 
 -- vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", {
@@ -174,18 +174,18 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 	-- bold = true,
 -- })
 vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", {
-	fg = "#ffffff",
-	bg = "#0530a3",
-	-- bold = true,
+    fg = "#ffffff",
+    bg = "#0530a3",
+    -- bold = true,
 })
 vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", {
-	fg = "#ffffff",
-	bg = "#3862d1",
-	-- bold = true,
+    fg = "#ffffff",
+    bg = "#3862d1",
+    -- bold = true,
 })
 vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
-	fg = "#ffffff",
-	bg = "#5c75b8",
-	-- bold = true,
+    fg = "#ffffff",
+    bg = "#5c75b8",
+    -- bold = true,
 })
 --------------------------------------------------------------------------------------------------------

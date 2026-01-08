@@ -97,14 +97,19 @@ return {
             view = {
                 adaptive_size = false,
                 side = "right",
-                width = 35,
-                preserve_window_proportions = true,
+                width = {
+                    min = 20,
+                    max = 60,
+                },
+                -- preserve_window_proportions = true,
                 number = false, -- No line numbers
-                relativenumber = false, -- No relative numbers
+                -- relativenumber = false, -- No relative numbers
                 signcolumn = "no", -- Hide sign column (removes ~)
             },
             git = {
                 enable = true,
+                show_on_dirs = false,
+                show_on_open_dirs = true,
                 ignore = true,
             },
             filesystem_watchers = {
@@ -117,8 +122,9 @@ return {
                 },
             },
             renderer = {
+                group_empty = true,
                 root_folder_label = false,
-                highlight_git = false,
+                highlight_git = true,
                 highlight_opened_files = "none",
                 indent_markers = {
                     enable = true,
@@ -149,15 +155,34 @@ return {
                             staged = "✓",
                             unmerged = "",
                             renamed = "➜",
-                            untracked = " ",
+                            untracked = "★",
                             deleted = "",
                             ignored = "◌",
                         },
                     },
                 },
             },
+            diagnostics = {
+                enable = true,
+                debounce_delay = 500,
+                show_on_dirs = true,
+                show_on_open_dirs = true,
+                icons = {
+                    hint = "",
+                    info = "",
+                    warning = "",
+                    error = "",
+                },
+            },
         })
 
+        vim.cmd([[
+        " :hi NvimTreeGitFileNewHL     guifg=#afaaaa   
+        :hi NvimTreeGitNewIcon guifg=#afaaaa
+        :hi NvimTreeDiagnosticErrorIcon        guifg= #ad3422
+        :hi NvimTreeDiagnosticErrorFileHL     guifg= #ab3822 
+        :hi NvimTreeDiagnosticErrorFolderHL     guifg = #ab3822
+    ]])
         -- Keymaps for toggling nvim-tree
         local keymap = vim.keymap.set
         local opts = { noremap = true, silent = true }
