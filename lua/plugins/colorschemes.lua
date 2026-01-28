@@ -52,6 +52,7 @@ return {
                 -- Specific color modifications for each theme (empty, so defaults will be used)
                 specs = {},
                 -- Override highlight groups if needed (empty, so defaults will be used)
+
                 groups = {
                     all = {
                         WinSeparator = { fg = "#f2cdcd" }, -- Replace with any color (similar to `flamingo`)

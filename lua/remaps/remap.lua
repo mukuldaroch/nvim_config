@@ -164,7 +164,6 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function() -- Set the color for concealed text
         vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
         vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
-        vim.opt.conceallevel = 2
     end,
 })
 
@@ -188,4 +187,5 @@ vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
     bg = "#5c75b8",
     -- bold = true,
 })
+
 --------------------------------------------------------------------------------------------------------
