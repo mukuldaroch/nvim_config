@@ -35,9 +35,9 @@ return {
             ensure_installed = {
                 "eslint_d", -- scan source code looking for errors
                 "lua_ls", -- Lua
-                "html",
-                "cssls",
-                "tsserver",
+                -- "html",
+                -- "cssls",
+                -- "tsserver",
                 -- Installed
                 -- ◍ jdtls
                 -- ◍ yamlfmt (keywords: yaml)
@@ -56,6 +56,7 @@ return {
                 -- ◍ stylelint
                 -- ◍ stylua
                 -- ◍ typescript - language - server
+                -- ◍ bash-language-server $ npm install bash-language-server@5.6.0
                 --   marksman
             },
         })
@@ -76,7 +77,10 @@ return {
         -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
-            "stylua", -- Used to format Lua code
+            "stylua",
+            "bash-language-server",
+            "lua",
+	    "shellcheck"
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

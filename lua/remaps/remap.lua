@@ -1,3 +1,17 @@
+vim.cmd([[
+  augroup KillDotRepeat
+    autocmd!
+    autocmd BufEnter * nnoremap <silent> . <Nop>
+  augroup END
+]])
+--
+--
+--
+--
+--
+--
+--
+--
 -- CTRL + j → next tab
 vim.keymap.set("n", "<C-j>", function()
     vim.cmd("tabnext")
@@ -36,6 +50,66 @@ vim.keymap.set("i", "<C-;>", "<Esc>", { noremap = true, silent = true })
 vim.g.mapleader = " " -- Set leader key to space (change if needed)
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
+-- -- Resize splits like tmux
+-- vim.keymap.set("n", "<leader>.", ":vertical resize -5<CR>", { silent = true })
+-- vim.keymap.set("n", "<leader>,", ":vertical resize +5<CR>", { silent = true })
+
+-- Resize mode
+-- Resize mode with timeout
+local function start_resize_mode()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+
+    local timeout_ms = 800
+    local timer = nil
+
+    local function cleanup()
+        if timer then
+            timer:stop()
+            timer:close()
+            timer = nil
+        end
+        pcall(vim.keymap.del, "n", ",", { buffer = bufnr })
+        pcall(vim.keymap.del, "n", ".", { buffer = bufnr })
+        pcall(vim.keymap.del, "n", "q", { buffer = bufnr })
+        pcall(vim.keymap.del, "n", "<Esc>", { buffer = bufnr })
+    end
+
+    local function reset_timer()
+        if timer then
+            timer:stop()
+            timer:close()
+        end
+        timer = vim.loop.new_timer()
+        timer:start(timeout_ms, 0, vim.schedule_wrap(cleanup))
+    end
+
+    vim.keymap.set("n", ",", function()
+        vim.cmd("vertical resize +5")
+        reset_timer()
+    end, opts)
+
+    vim.keymap.set("n", ".", function()
+        vim.cmd("vertical resize -5")
+        reset_timer()
+    end, opts)
+
+    vim.keymap.set("n", "q", cleanup, opts)
+    vim.keymap.set("n", "<Esc>", cleanup, opts)
+
+    reset_timer()
+end
+
+-- Entry points (tmux-style)
+vim.keymap.set("n", "<leader>,", function()
+    vim.cmd("vertical resize +5")
+    start_resize_mode()
+end, { silent = true })
+
+vim.keymap.set("n", "<leader>.", function()
+    vim.cmd("vertical resize -5")
+    start_resize_mode()
+end, { silent = true })
 
 --------------------------------------------------------------------------------------------------------
 -- disable netrw at the very start of your init.lua

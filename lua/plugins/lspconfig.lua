@@ -155,6 +155,11 @@ return {
                 single_file_support = true,
             },
 
+            bashls = {
+                filetypes = { "sh", "bash" },
+                settings = {},
+            },
+
             lua_ls = {
                 cmd = { vim.fn.stdpath("data") .. "/mason/bin/lua-language-server" }, -- Use Mason's LSP
                 capabilities = {
@@ -176,100 +181,100 @@ return {
                 },
             },
 
-            ts_ls = {
-                root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
-                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-                single_file_support = true,
-            },
+            -- ts_ls = {
+            --     root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
+            --     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+            --     single_file_support = true,
+            -- },
+            -- --
+            -- eslint = {
+            --     root_dir = require("lspconfig.util").root_pattern(".eslintrc.js", ".git"),
+            -- },
+            -- --
+            -- html = {
+            --     root_dir = require("lspconfig.util").root_pattern("index.html", ".git"),
+            --     capabilities = capabilities, -- Optional, if you want to use any additional capabilities
+            -- },
             --
-            eslint = {
-                root_dir = require("lspconfig.util").root_pattern(".eslintrc.js", ".git"),
-            },
+            -- cssls = {
+            --     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            -- },
             --
-            html = {
-                root_dir = require("lspconfig.util").root_pattern("index.html", ".git"),
-                capabilities = capabilities, -- Optional, if you want to use any additional capabilities
-            },
-
-            cssls = {
-                capabilities = require("cmp_nvim_lsp").default_capabilities(),
-            },
-
-            pyright = {
-                capabilities = { offsetEncoding = "utf-8" },
-                settings = {
-                    python = {
-                        analysis = {
-                            typeCheckingMode = "strict",
-                            autoSearchPaths = true,
-                            useLibraryCodeForTypes = true,
-                        },
-                    },
-                },
-            },
-
-            sqls = {
-                on_attach = function(client, bufnr)
-                    -- disable sqls formatting to prevent conflicts
-                    client.server_capabilities.documentFormattingProvider = false
-                end,
-                settings = {
-                    sqls = {
-                        connections = {
-                            {
-                                driver = "sqlite3",
-                                dataSourceName = "bro.db",
-                            },
-                        },
-                    },
-                },
-            },
-            tailwindcss = {
-                capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                filetypes = {
-                    "html",
-                    "css",
-                    "scss",
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                },
-                init_options = {
-                    userLanguages = {
-                        javascript = "javascript",
-                        typescript = "typescript",
-                        javascriptreact = "javascript",
-                        typescriptreact = "typescript",
-                    },
-                },
-                root_dir = require("lspconfig").util.root_pattern(
-                    "tailwind.config.js",
-                    "tailwind.config.ts",
-                    "postcss.config.js",
-                    "package.json"
-                ),
-            },
-            emmet_ls = {
-                capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                filetypes = {
-                    "html",
-                    "css",
-                    "scss",
-                    "javascript",
-                    "javascriptreact",
-                    "typescriptreact",
-                    -- anything with JSX basically
-                },
-                init_options = {
-                    html = {
-                        options = {
-                            -- For React, you want `className` instead of `class`
-                            ["bem.enabled"] = true,
-                        },
-                    },
-                },
-            },
+            -- pyright = {
+            --     capabilities = { offsetEncoding = "utf-8" },
+            --     settings = {
+            --         python = {
+            --             analysis = {
+            --                 typeCheckingMode = "strict",
+            --                 autoSearchPaths = true,
+            --                 useLibraryCodeForTypes = true,
+            --             },
+            --         },
+            --     },
+            -- },
+            --
+            -- sqls = {
+            --     on_attach = function(client, bufnr)
+            --         -- disable sqls formatting to prevent conflicts
+            --         client.server_capabilities.documentFormattingProvider = false
+            --     end,
+            --     settings = {
+            --         sqls = {
+            --             connections = {
+            --                 {
+            --                     driver = "sqlite3",
+            --                     dataSourceName = "bro.db",
+            --                 },
+            --             },
+            --         },
+            --     },
+            -- },
+            -- tailwindcss = {
+            --     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            --     filetypes = {
+            --         "html",
+            --         "css",
+            --         "scss",
+            --         "javascript",
+            --         "javascriptreact",
+            --         "typescript",
+            --         "typescriptreact",
+            --     },
+            --     init_options = {
+            --         userLanguages = {
+            --             javascript = "javascript",
+            --             typescript = "typescript",
+            --             javascriptreact = "javascript",
+            --             typescriptreact = "typescript",
+            --         },
+            --     },
+            --     root_dir = require("lspconfig").util.root_pattern(
+            --         "tailwind.config.js",
+            --         "tailwind.config.ts",
+            --         "postcss.config.js",
+            --         "package.json"
+            --     ),
+            -- },
+            -- emmet_ls = {
+            --     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            --     filetypes = {
+            --         "html",
+            --         "css",
+            --         "scss",
+            --         "javascript",
+            --         "javascriptreact",
+            --         "typescriptreact",
+            --         -- anything with JSX basically
+            --     },
+            --     init_options = {
+            --         html = {
+            --             options = {
+            --                 -- For React, you want `className` instead of `class`
+            --                 ["bem.enabled"] = true,
+            --             },
+            --         },
+            --     },
+            -- },
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
