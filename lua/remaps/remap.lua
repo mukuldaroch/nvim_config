@@ -6,6 +6,14 @@ vim.cmd([[
 ]])
 --
 --
+vim.opt.laststatus = 3 -- global statusline (Neovim 0.7+)
+
+-- Force separator characters to be visible
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ffffff", bg = "NONE" })
+
+-- These control horizontal split visibility
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ffffff", bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#888888", bg = "NONE" })
 --
 --
 --
@@ -118,6 +126,7 @@ vim.g.loaded_netrwPlugin = 1
 
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------
+---
 vim.g.mapleader = " "
 
 vim.g.maplocalleader = " "
