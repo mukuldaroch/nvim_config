@@ -19,6 +19,10 @@ return {
 
         null_ls.setup({
             sources = {
+
+                null_ls.builtins.formatting.goimports,
+                null_ls.builtins.formatting.gofumpt,
+
                 -- Web: HTML, CSS, JS, TS, etc.
                 null_ls.builtins.formatting.prettier.with({
                     extra_args = { "--tab-width", "4" },

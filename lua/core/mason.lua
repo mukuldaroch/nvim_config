@@ -80,7 +80,11 @@ return {
             "stylua",
             "bash-language-server",
             "lua",
-	    "shellcheck"
+            "shellcheck",
+            -- "gopls",
+            -- "goimports",
+            -- "gofumpt",
+            -- "delve",
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

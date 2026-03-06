@@ -143,7 +143,6 @@ return {
                 end,
             },
         })
-
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         local servers = {
 
@@ -159,7 +158,6 @@ return {
                 filetypes = { "sh", "bash" },
                 settings = {},
             },
-
             lua_ls = {
                 cmd = { vim.fn.stdpath("data") .. "/mason/bin/lua-language-server" }, -- Use Mason's LSP
                 capabilities = {
@@ -173,6 +171,15 @@ return {
                     },
                 },
             },
+            gopls = {
+                cmd = { vim.fn.stdpath("data") .. "/mason/bin/gopls" }, -- Use Mason's LSP
+                settings = {
+                    gopls = {
+                        gofumpt = true,
+                        staticcheck = true,
+                    },
+                },
+            },
             marksman = {
                 cmd = { vim.fn.stdpath("data") .. "/mason/bin/marksman" }, -- or just "marksman" if it's globally installed
                 filetypes = { "markdown", "markdown.mdx" },
@@ -181,16 +188,29 @@ return {
                 },
             },
 
-            -- ts_ls = {
-            --     root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
-            --     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-            --     single_file_support = true,
-            -- },
-            -- --
-            -- eslint = {
-            --     root_dir = require("lspconfig.util").root_pattern(".eslintrc.js", ".git"),
-            -- },
-            -- --
+            ts_ls = {
+                cmd = { vim.fn.stdpath("data") .. "/mason/bin/typescript-language-server" }, -- Use Mason's LSP
+                root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
+                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+                single_file_support = true,
+                settings = {
+                    typescript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                        },
+                    },
+                    javascript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                        },
+                    },
+                },
+            },
+            --
+            eslint = {
+                root_dir = require("lspconfig.util").root_pattern(".eslintrc.js", ".git"),
+            },
+            --
             -- html = {
             --     root_dir = require("lspconfig.util").root_pattern("index.html", ".git"),
             --     capabilities = capabilities, -- Optional, if you want to use any additional capabilities
@@ -199,7 +219,7 @@ return {
             -- cssls = {
             --     capabilities = require("cmp_nvim_lsp").default_capabilities(),
             -- },
-            --
+
             -- pyright = {
             --     capabilities = { offsetEncoding = "utf-8" },
             --     settings = {
@@ -212,7 +232,7 @@ return {
             --         },
             --     },
             -- },
-            --
+
             -- sqls = {
             --     on_attach = function(client, bufnr)
             --         -- disable sqls formatting to prevent conflicts
@@ -255,26 +275,38 @@ return {
             --         "package.json"
             --     ),
             -- },
-            -- emmet_ls = {
-            --     capabilities = require("cmp_nvim_lsp").default_capabilities(),
-            --     filetypes = {
-            --         "html",
-            --         "css",
-            --         "scss",
-            --         "javascript",
-            --         "javascriptreact",
-            --         "typescriptreact",
-            --         -- anything with JSX basically
-            --     },
-            --     init_options = {
-            --         html = {
-            --             options = {
-            --                 -- For React, you want `className` instead of `class`
-            --                 ["bem.enabled"] = true,
-            --             },
-            --         },
-            --     },
-            -- },
+            emmet_ls = {
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                filetypes = {
+                    "html",
+                    "css",
+                    "scss",
+                    "javascript",
+                    "javascriptreact",
+                    "typescriptreact",
+                    -- anything with JSX basically
+                },
+                init_options = {
+                    html = {
+                        options = {
+                            -- For React, you want `className` instead of `class`
+                            ["bem.enabled"] = true,
+                        },
+                    },
+                },
+            },
+            prismals = {
+                cmd = { vim.fn.stdpath("data") .. "/mason/bin/prisma-language-server", "--stdio" },
+                filetypes = { "prisma" },
+                capabilities = {
+                    offsetEncoding = "utf-8",
+                },
+                settings = {
+                    prisma = {
+                        prismaFmtBinPath = vim.fn.stdpath("data") .. "/mason/bin/prisma-fmt",
+                    },
+                },
+            },
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
@@ -294,5 +326,11 @@ return {
                 end,
             },
         })
+
+        vim.o.updatetime = 1000
+
+        vim.cmd([[
+  autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focus = false })
+]])
     end,
 }

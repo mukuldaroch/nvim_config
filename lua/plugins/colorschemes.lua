@@ -64,41 +64,10 @@ return {
                         WinSeparator = { fg = "#ffffff" },
 
                         -- horizontal split line influence
-                        StatusLine = { fg = "#ffffff", bg = "NONE" },
-                        StatusLineNC = { fg = "#ffffff", bg = "NONE" },
-
-                        -- sometimes used for borders
-                        FloatBorder = { fg = "#ffffff" },
-
-                        -- winbar separator (Neovim 0.9+)
-                        WinBar = { fg = "#ffffff", bg = "NONE" },
-                        WinBarNC = { fg = "#ffffff", bg = "NONE" },
+                        StatusLine = { fg = "#ffffff" },
+                        StatusLineNC = { fg = "#ffffff" },
                     },
                 },
-            })
-
-            -- separator characters
-            vim.opt.fillchars = {
-                horiz = "━",
-                vert = "┃",
-                verthoriz = "╋",
-            }
-
-            -- force separator color
-            vim.api.nvim_set_hl(0, "WinSeparator", {
-                fg = "#ffffff",
-                bg = "NONE",
-            })
-
-            -- CRITICAL FIX: remove statusline background
-            vim.api.nvim_set_hl(0, "StatusLine", {
-                fg = "#ffffff",
-                bg = "NONE",
-            })
-
-            vim.api.nvim_set_hl(0, "StatusLineNC", {
-                fg = "#777777",
-                bg = "NONE",
             })
         end,
     },

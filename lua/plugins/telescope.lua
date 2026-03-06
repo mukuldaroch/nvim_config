@@ -79,6 +79,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
                 hidden = true, -- 👈 Show hidden files!
                 file_ignore_patterns = {
                     "node_modules",
+                    "generated",
                     "target",
                     "%.git",
                     -- "%.vs",
