@@ -173,7 +173,7 @@ return {
             { noremap = true, silent = true }
         )
         vim.api.nvim_set_keymap("n", "<leader>lg", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>I", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_vertically()<CR>", { noremap = true, silent = true })
         --
     end,

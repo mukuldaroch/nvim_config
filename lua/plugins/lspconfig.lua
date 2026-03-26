@@ -147,6 +147,7 @@ return {
         local servers = {
 
             clangd = {
+                cmd = { vim.fn.stdpath("data") .. "/mason/bin/clangd" }, -- Use Mason's LSP
                 capabilities = {
                     offsetEncoding = { "utf-8" }, -- helps with some LSP encoding issues
                 },

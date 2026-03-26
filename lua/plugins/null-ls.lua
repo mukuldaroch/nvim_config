@@ -25,7 +25,7 @@ return {
 
                 -- Web: HTML, CSS, JS, TS, etc.
                 null_ls.builtins.formatting.prettier.with({
-                    extra_args = { "--tab-width", "4" },
+                    extra_args = { "--tab-width", "2" },
                     filetypes = {
                         "html",
                         "css",

@@ -28,7 +28,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
             defaults = {
                 mappings = {
                     i = {
-                        ["<esc>"] = actions.close, -- Close on single Esc in insert mode
+                        ["<esc>"] = actions.close,
+
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-k>"] = actions.move_selection_previous,
+                    },
+                    n = {
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-k>"] = actions.move_selection_previous,
                     },
                 },
             },

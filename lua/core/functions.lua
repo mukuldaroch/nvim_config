@@ -1,22 +1,3 @@
--- local function tmux_buffers()
---     local handle = io.popen("tmux list-windows -F '#I:#W'")
---     if handle == nil then
---         return ""
---     end
---     local result = handle:read("*a")
---     handle:close()
---
---     -- Format the output nicely
---     local windows = {}
---     for line in result:gmatch("[^\r\n]+") do
---         table.insert(windows, line)
---     end
---
---     return table.concat(windows, " | ")
--- end
---
---
---
 -- =========================
 -- TMUX WINDOWS FUNCTION
 -- =========================
@@ -84,3 +65,23 @@ vim.opt.statusline = table.concat({
 -- =========================
 -- Required so statusline can call it
 _G.tmux_buffers = tmux_buffers
+
+local function macro_recording()
+    local reg = vim.fn.reg_recording()
+    if reg == "" then
+        return ""
+    else
+        return " Recording @" .. reg
+    end
+end
+
+-- ---------------------------------------------------------------------------------------------------------------------
+local notify = vim.notify
+vim.notify = function(msg, ...)
+    if msg:match("warning: multiple different client offset_encodings") then
+        return
+    end
+
+    notify(msg, ...)
+end
+
