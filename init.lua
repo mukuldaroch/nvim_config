@@ -9,6 +9,12 @@ require("core.options")
 require("core.lazy")
 
 vim.cmd("colorscheme carbonfox")
+-- Set cmdheight to 1 when macro recording starts
+vim.api.nvim_create_autocmd("RecordingEnter", {
+    callback = function()
+        vim.opt.cmdheight = 1
+    end,
+})
 
 vim.cmd([[
     hi Normal guibg=NONE ctermbg=NONE
@@ -16,6 +22,14 @@ vim.cmd([[
     hi EndOfBuffer guibg=NONE ctermbg=NONE
 ]])
 
+local function macro_recording()
+    local reg = vim.fn.reg_recording()
+    if reg == "" then
+        return ""
+    else
+        return " Recording @" .. reg
+    end
+end
 require("lualine").setup({
     sections = {
         lualine_x = {
@@ -28,11 +42,5 @@ require("lualine").setup({
         }, -- Show file encoding, format (e.g., unix), and type
     },
 })
+vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 
--- make floating window background black
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-
--- optional: border color
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#7aa2f7", bg = "#000000" })
--- vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#ff0000", bg = "#000000" })
---

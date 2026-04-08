@@ -66,14 +66,15 @@ vim.opt.statusline = table.concat({
 -- Required so statusline can call it
 _G.tmux_buffers = tmux_buffers
 
-local function macro_recording()
-    local reg = vim.fn.reg_recording()
-    if reg == "" then
-        return ""
-    else
-        return " Recording @" .. reg
-    end
-end
+-- ---------------------------------------------------------------------------------------------------------------------
+-- local notify = vim.notify
+-- vim.notify = function(msg, ...)
+--     if msg:match("warning: multiple different client offset_encodings") then
+--         return
+--     end
+--
+--     notify(msg, ...)
+-- end
 
 -- ---------------------------------------------------------------------------------------------------------------------
 local notify = vim.notify
@@ -85,3 +86,4 @@ vim.notify = function(msg, ...)
     notify(msg, ...)
 end
 
+-- ---------------------------------------------------------------------------------------------------------------------

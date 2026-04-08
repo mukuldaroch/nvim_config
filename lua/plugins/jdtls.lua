@@ -124,11 +124,11 @@ return {
                 java = {
                     references = { includeDecompiledSources = true },
                     format = {
-                        enabled = true,
-                        settings = {
-                            url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
-                            profile = "GoogleStyle",
-                        },
+                        enabled = false,
+                        -- settings = {
+                        --     url = vim.fn.stdpath("config") .. "/lang_servers/intellij-java-google-style.xml",
+                        --     profile = "GoogleStyle",
+                        -- },
                     },
                     eclipse = { downloadSources = true },
                     maven = { downloadSources = true },
@@ -191,30 +191,6 @@ return {
                     },
                 },
             },
-            -- on_attach = function(client, bufnr)
-            --     -- Enable completion triggered by <c-x><c-o>
-            --     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-            --
-            --     -- Mappings
-            --     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-            --     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-            --     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-            --     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-            --     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-            --     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-            --     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-            --     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-            --     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-            --     vim.keymap.set("n", "<leader>f", function()
-            --         vim.lsp.buf.format({ async = true })
-            --     end, bufopts)
-            --
-            --     -- Java specific mappings
-            --     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, bufopts)
-            --     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, bufopts)
-            --     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, bufopts)
-            --     vim.keymap.set("v", "<leader>em", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], bufopts)
-            -- end,
 
             init_options = { bundles = bundles },
         },

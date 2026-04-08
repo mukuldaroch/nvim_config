@@ -1,8 +1,8 @@
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.java",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
+    pattern = "*.java",
+    callback = function()
+        vim.lsp.buf.format()
+    end,
 })
 
 -- Set cmdheight to 1 when macro recording starts
@@ -57,10 +57,16 @@ vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
     -- bold = true,
 })
 
-
 -- Force separator characters to be visible
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ffffff", bg = "NONE" })
 
 -- These control horizontal split visibility
 vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ffffff", bg = "NONE" })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#888888", bg = "NONE" })
+
+-- make floating window background black
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+
+-- optional: border color
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#7aa2f7", bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#ff0000", bg = "#000000" })

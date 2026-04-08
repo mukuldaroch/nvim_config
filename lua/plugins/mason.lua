@@ -35,6 +35,8 @@ return {
             ensure_installed = {
                 "eslint_d", -- scan source code looking for errors
                 "lua_ls", -- Lua
+
+                -- ➜ google-java-format
                 -- "html",
                 -- "cssls",
                 -- "tsserver",

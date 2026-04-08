@@ -54,6 +54,27 @@ return {
             end,
         })
 
+        -- Function to open lazygit in a full-screen terminal
+        local lazytask = Terminal:new({
+            cmd = "taskwarrior-tui",
+            hidden = true,
+            direction = "float",
+            float_opts = {
+                border = "none",
+                width = vim.o.columns, -- Convert to integer
+                height = vim.o.lines, -- Convert to integer
+            },
+            on_open = function(term)
+                vim.cmd("startinsert!") -- Start in insert mode
+                vim.api.nvim_buf_set_keymap(
+                    term.bufnr,
+                    "t",
+                    "<esc>",
+                    "<C-\\><C-n>:q<CR>",
+                    { noremap = true, silent = true }
+                )
+            end,
+        })
         -------------------------------------------------------------------------------
         -- Function to run Python file in a full-screen terminal
         function _G.run_code_fullscreen()
@@ -161,6 +182,10 @@ return {
         function _G.toggle_lazygit()
             lazygit:toggle()
         end
+        -- Function to toggle LazyTask
+        function _G.toggle_lazytask()
+            lazytask:toggle()
+        end
 
         -------------------------------------------------------------------------------
 
@@ -173,7 +198,8 @@ return {
             { noremap = true, silent = true }
         )
         vim.api.nvim_set_keymap("n", "<leader>lg", ":lua toggle_lazygit()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "<leader>I", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>lt", ":lua toggle_lazytask()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>i", ":lua run_code_fullscreen()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>r", ":lua run_code_vertically()<CR>", { noremap = true, silent = true })
         --
     end,

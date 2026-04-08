@@ -75,7 +75,7 @@ return {
                 if
                     client
                     and client_supports_method(
-                        client,
+                   	    client,
                         vim.lsp.protocol.Methods.textDocument_documentHighlight,
                         event.buf
                     )
@@ -145,6 +145,26 @@ return {
         })
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         local servers = {
+            rust_analyzer = {
+                cmd = { vim.fn.stdpath("data") .. "/mason/bin/rust-analyzer" },
+
+                capabilities = require("cmp_nvim_lsp").default_capabilities(),
+
+                filetypes = { "rust" },
+
+                single_file_support = true,
+
+                settings = {
+                    ["rust-analyzer"] = {
+                        cargo = {
+                            allFeatures = true,
+                        },
+                        checkOnSave = {
+                            command = "clippy",
+                        },
+                    },
+                },
+            },
 
             clangd = {
                 cmd = { vim.fn.stdpath("data") .. "/mason/bin/clangd" }, -- Use Mason's LSP
@@ -168,6 +188,9 @@ return {
                     Lua = {
                         completion = {
                             callSnippet = "Replace",
+                        },
+                        format = {
+                            enable = false,
                         },
                     },
                 },

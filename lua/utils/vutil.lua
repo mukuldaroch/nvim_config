@@ -1,13 +1,10 @@
-
 ---Collection of utilities for Neovim. Depends on (Neo)vim API.
 return {
 
     ---Get current operation system as a string.
     ---@return string os_name either "mac","win" or "linux"
     get_os = function()
-        local os_name = vim.fn.has("macunix") == 1 and "mac" or
-            vim.fn.has("win32") == 1 and "win" or
-            "linux"
+        local os_name = vim.fn.has("macunix") == 1 and "mac" or vim.fn.has("win32") == 1 and "win" or "linux"
         return os_name
     end,
 

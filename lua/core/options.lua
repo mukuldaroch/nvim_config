@@ -1,4 +1,3 @@
---
 vim.opt.laststatus = 3 -- global statusline (Neovim 0.7+)
 
 -- Make line numbers default
@@ -55,4 +54,3 @@ vim.opt.scrolloff = 10
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-

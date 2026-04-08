@@ -5,7 +5,7 @@ return {
         config = function()
             -- Configure nvim-treesitter
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "vim", "vimdoc", "java", "javascript" },
+                ensure_installed = { "bash", "java", "json", "yaml", "gitignore" },
                 -- working parsers = c , lua , python,
                 -- not working parsers = cpp
                 auto_install = true,
