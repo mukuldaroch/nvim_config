@@ -75,7 +75,7 @@ return {
                 if
                     client
                     and client_supports_method(
-                   	    client,
+                        client,
                         vim.lsp.protocol.Methods.textDocument_documentHighlight,
                         event.buf
                     )
@@ -344,6 +344,11 @@ return {
             automatic_installation = false,
             handlers = {
                 function(server_name)
+                    -- ❌ skip jdtls completely
+                    if server_name == "jdtls" then
+                        return
+                    end
+
                     local server = servers[server_name] or {}
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                     require("lspconfig")[server_name].setup(server)

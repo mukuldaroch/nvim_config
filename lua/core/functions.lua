@@ -1,44 +1,44 @@
 -- =========================
 -- TMUX WINDOWS FUNCTION
 -- =========================
-local function tmux_buffers()
-    local handle = io.popen("tmux list-windows -F '#I:#W' 2>/dev/null")
-
-    if handle == nil then
-        return ""
-    end
-
-    local result = handle:read("*a")
-    handle:close()
-
-    if result == nil or result == "" then
-        return ""
-    end
-
-    local windows = {}
-
-    for line in result:gmatch("[^\r\n]+") do
-        table.insert(windows, line)
-    end
-
-    return table.concat(windows, " | ")
-end
+-- local function tmux_buffers()
+--     local handle = io.popen("tmux list-windows -F '#I:#W' 2>/dev/null")
+--
+--     if handle == nil then
+--         return ""
+--     end
+--
+--     local result = handle:read("*a")
+--     handle:close()
+--
+--     if result == nil or result == "" then
+--         return ""
+--     end
+--
+--     local windows = {}
+--
+--     for line in result:gmatch("[^\r\n]+") do
+--         table.insert(windows, line)
+--     end
+--
+--     return table.concat(windows, " | ")
+-- end
 
 -- =========================
 -- SEPARATOR CHARACTERS
 -- =========================
 -- These control horizontal and vertical split appearance
-vim.opt.fillchars = {
-    horiz = "━", -- horizontal split line
-    horizup = "━",
-    horizdown = "━",
-
-    vert = "┃", -- vertical split line
-    vertleft = "┃",
-    vertright = "┃",
-
-    verthoriz = "╋", -- intersection
-}
+-- vim.opt.fillchars = {
+--     horiz = "━", -- horizontal split line
+--     horizup = "━",
+--     horizdown = "━",
+--
+--     vert = "┃", -- vertical split line
+--     vertleft = "┃",
+--     vertright = "┃",
+--
+--     verthoriz = "╋", -- intersection
+-- }
 
 -- =========================
 -- FORCE SEPARATOR COLOR

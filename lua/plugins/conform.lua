@@ -16,6 +16,7 @@ return {
                 html = { "prettier" },
                 css = { "prettier" },
                 java = { "google-java-format" }, -- important
+                markdown = { "prettier" },
             },
 
             format_on_save = {
