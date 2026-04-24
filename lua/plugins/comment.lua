@@ -20,6 +20,7 @@ return {
     --
     {
         "folke/todo-comments.nvim",
+        event = "VeryLazy", -- Load it lazily on a very lazy event
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
             signs = true,

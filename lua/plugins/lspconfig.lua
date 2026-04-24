@@ -19,7 +19,12 @@ return {
                 },
             },
         },
-        "saghen/blink.cmp",
+        {
+            "saghen/blink.cmp",
+            dependencies = {
+                "saghen/blink.lib",
+            },
+        },
     },
     config = function()
         vim.api.nvim_create_autocmd("LspAttach", {

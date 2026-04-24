@@ -1,46 +1,36 @@
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.java",
+-- hides the command line until you need it
+-- vim.opt.cmdheight = 0
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
     callback = function()
-        vim.lsp.buf.format()
+        vim.highlight.on_yank()
     end,
 })
 
--- Set cmdheight to 1 when macro recording starts
-vim.api.nvim_create_autocmd("RecordingEnter", {
-    callback = function()
-        vim.opt.cmdheight = 1
-    end,
-})
-
--- Hide cmdline when recording starts
-vim.api.nvim_create_autocmd("RecordingEnter", {
-    callback = function()
-        -- Delay slightly to override Neovim's default behavior
-        local timer = vim.loop.new_timer()
-        timer:start(
-            50,
-            0,
-            vim.schedule_wrap(function()
-                vim.opt.cmdheight = 0
-            end)
-        )
-    end,
-})
-
---------------------------------------------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
-    callback = function() -- Set the color for concealed text
-        vim.cmd("highlight Conceal ctermfg=gray guifg=gray") -- Match ``` and conceal it
-        vim.cmd("syntax match markdownCodeDelimiter /```/ conceal") -- Ensure conceal is enabled
+    callback = function()
+        -- enable conceal
+        vim.opt_local.conceallevel = 2
+        vim.opt_local.concealcursor = ""
+        -- vim.opt_local.concealcursor = "n"
+        -- Visible in insert mode
+        -- Hidden in normal mode
+
+        -- set conceal highlight
+        vim.api.nvim_set_hl(0, "Conceal", {
+            fg = "gray",
+        })
+
+        -- Tree-sitter compatible conceal
+        vim.cmd([[
+            syntax match markdownCodeDelimiter /```/ conceal
+        ]])
     end,
 })
 
--- vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", {
--- 	fg = "#000000",
--- 	bg = "#10B981",
--- 	-- bold = true,
--- })
 vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", {
     fg = "#ffffff",
     bg = "#0530a3",
@@ -56,17 +46,3 @@ vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", {
     bg = "#5c75b8",
     -- bold = true,
 })
-
--- Force separator characters to be visible
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ffffff", bg = "NONE" })
-
--- These control horizontal split visibility
-vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ffffff", bg = "NONE" })
-vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#888888", bg = "NONE" })
-
--- make floating window background black
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-
--- optional: border color
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#7aa2f7", bg = "#000000" })
--- vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#ff0000", bg = "#000000" })

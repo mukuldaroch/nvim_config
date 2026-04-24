@@ -1,15 +1,3 @@
-vim.cmd([[
-  augroup KillDotRepeat
-    autocmd!
-    autocmd BufEnter * nnoremap <silent> . <Nop>
-  augroup END
-]])
---
---
---
---
---
---
 --
 -- CTRL + j → next tab
 vim.keymap.set("n", "<C-j>", function()
@@ -125,14 +113,6 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
-
 -- ---------------------------------------------------------------------------------------------------------------------
 local map = vim.keymap.set
 
@@ -162,8 +142,6 @@ vim.keymap.set("n", "<leader>qq", ":q!<CR>", { noremap = true, silent = true })
 -- Key mapping for :w (save)
 vim.keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
 -- ---------------------------------------------------------------------------------------------------------------------
--- hides the command line until you need it
-vim.opt.cmdheight = 0
 -- ---------------------------------------------------------------------------------------------------------------------
 vim.keymap.set("n", "<leader>lr", ":LspRestart<CR>", { noremap = true, silent = true })
 -- ---------------------------------------------------------------------------------------------------------------------

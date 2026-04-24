@@ -1,5 +1,6 @@
 return {
     "williamboman/mason.nvim",
+    event = "VeryLazy", -- Load it lazily on a very lazy event
     opt = {
         registries = {
             "github:nvim-java/mason-registry",

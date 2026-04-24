@@ -1,23 +1,26 @@
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            -- Configure nvim-treesitter
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = { "bash", "java", "json", "yaml", "gitignore" },
-                -- working parsers = c , lua , python,
-                -- not working parsers = cpp
-                auto_install = true,
-                indent = {
-                    enable = true,
-                },
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    lazy = false, -- force load (important for debugging)
+    config = function()
+        local ok, configs = pcall(require, "nvim-treesitter.configs")
+        if not ok then
+            return
+        end
 
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = true, -- Disable legacy Vim highlighting
-                },
-            })
-        end,
-    },
+        configs.setup({
+            ensure_installed = {
+                "bash",
+                "java",
+                "json",
+                "yaml",
+                "gitignore",
+                "markdown",
+                "markdown_inline",
+            },
+            auto_install = true,
+            highlight = { enable = true },
+            indent = { enable = true },
+        })
+    end,
 }

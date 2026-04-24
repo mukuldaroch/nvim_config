@@ -1,5 +1,6 @@
 return {
     "stevearc/conform.nvim",
+    event = "VeryLazy", -- Load it lazily on a very lazy event
     event = { "BufReadPre", "BufNewFile" },
 
     config = function()

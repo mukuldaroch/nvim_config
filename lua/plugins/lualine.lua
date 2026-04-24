@@ -1,44 +1,125 @@
 return {
-    -- Load lualine.nvim as a plugin
-    "nvim-lualine/lualine.nvim",
-    -- Load nvim-web-devicons as a dependency for file icons
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-        require("lualine").setup({
-            options = {
-                icons_enabled = true, -- Enable icons in the statusline
-                -- theme = "auto", -- Automatically detect and apply the theme based on the current colorscheme
-                component_separators = { left = "", right = "" }, -- Separators between components
-                section_separators = { left = "", right = "" }, -- Separators between sections
-                always_divide_middle = true, -- Ensure left and right sections are always separated
-                globalstatus = true, -- Use a single statusline for all windows instead of one per window
-            },
-            sections = {
-                -- Left-most section
-                lualine_a = { "mode" }, -- Show the current mode (normal, insert, visual, etc.)
-                -- Left section next to `lualine_a`
-                lualine_b = { { "filetype", color = { fg = "#ffcc66", gui = "bold" } }, "filename" }, -- Show git branch, git diff, and LSP diagnostics
-                -- Middle section
-                lualine_c = { "diagnostics" }, -- Show the current file name
-
-                -- Right section next to `lualine_z`
-                lualine_x = { "branch", "diff" }, -- Show file encoding, format (e.g., unix), and type
-                -- Right section before `lualine_z`
-                lualine_y = { "progress" }, -- Show the progress in the file (percentage)
-                -- Right-most section
-                lualine_z = { "location" }, -- Show the current line and column
-            },
-            inactive_sections = {
-                -- Define the statusline for inactive windows (minimal setup)
-                lualine_a = {},
-                lualine_b = {},
-                lualine_c = { "filename" }, -- Show filename only in inactive windows
-                lualine_x = { "location" }, -- Show location only in inactive windows
-                lualine_y = {},
-                lualine_z = {},
-            },
-            -- tabline = {}, -- No tabline configuration (can be configured if needed)
-            extensions = { "nvim-tree", "quickfix", "fugitive" }, -- Load extensions for tree view, quickfix, and git
-        })
-    end,
+    -- "nvim-lualine/lualine.nvim",
+    -- dependencies = { "nvim-tree/nvim-web-devicons" },
+    --
+    -- config = function()
+    --     ----------------------------------------------------------------------
+    --     -- MACRO RECORDING SETUP (Autocommands)
+    --     ----------------------------------------------------------------------
+    --
+    --     -- Create an augroup to prevent duplicate autocmds on reload
+    --     local augroup = vim.api.nvim_create_augroup("MacroRecording", { clear = true })
+    --
+    --     -- When macro recording starts → show command line
+    --     vim.api.nvim_create_autocmd("RecordingEnter", {
+    --         group = augroup,
+    --         callback = function()
+    --             vim.opt.cmdheight = 1
+    --         end,
+    --     })
+    --
+    --     -- When macro recording stops → hide command line
+    --     vim.api.nvim_create_autocmd("RecordingLeave", {
+    --         group = augroup,
+    --         callback = function()
+    --             vim.opt.cmdheight = 0
+    --         end,
+    --     })
+    --
+    --     ----------------------------------------------------------------------
+    --     -- FUNCTION: SHOW MACRO RECORDING IN STATUSLINE
+    --     ----------------------------------------------------------------------
+    --
+    --     -- This function is used by lualine to display recording status
+    --     local function macro_recording()
+    --         local reg = vim.fn.reg_recording()
+    --
+    --         -- If not recording → show nothing
+    --         if reg == "" then
+    --             return ""
+    --         end
+    --
+    --         -- If recording → show register name
+    --         return " Recording @" .. reg
+    --     end
+    --
+    --     ----------------------------------------------------------------------
+    --     -- LUALINE SETUP (ONLY ONE SETUP CALL!)
+    --     ----------------------------------------------------------------------
+    --
+    --     require("lualine").setup({
+    --         options = {
+    --             icons_enabled = true, -- Enable icons
+    --
+    --             -- UI separators
+    --             component_separators = { left = "", right = "" },
+    --             section_separators = { left = "", right = "" },
+    --
+    --             always_divide_middle = false, -- Keep left/right separated
+    --             globalstatus = true, -- Single statusline for all windows
+    --         },
+    --
+    --         sections = {
+    --             ------------------------------------------------------------------
+    --             -- LEFT SIDE
+    --             ------------------------------------------------------------------
+    --
+    --             -- Current mode (NORMAL, INSERT, etc.)
+    --             lualine_a = { "mode" },
+    --
+    --             -- Filetype + filename
+    --             lualine_b = {
+    --                 { "filetype", color = { fg = "#ffcc66", gui = "bold" } },
+    --                 "filename",
+    --             },
+    --
+    --             -- Diagnostics (LSP errors, warnings, etc.)
+    --             -- lualine_c = { "diagnostics" },
+    --             -- lualine_c = { require("tmux-status").tmux_windows },
+    --
+    --             ------------------------------------------------------------------
+    --             -- RIGHT SIDE
+    --             ------------------------------------------------------------------
+    --
+    --             -- Custom macro recording indicator added here
+    --             lualine_x = {
+    --                 {
+    --                     macro_recording,
+    --                     color = { fg = "#ff0000", gui = "bold" }, -- red highlight
+    --                 },
+    --                 "branch", -- git branch
+    --                 "diff", -- git changes
+    --             },
+    --
+    --             -- File progress (%)
+    --             lualine_y = { "progress" },
+    --
+    --             -- Cursor location (line:column)
+    --             lualine_z = { "location" },
+    --         },
+    --
+    --         ----------------------------------------------------------------------
+    --         -- INACTIVE WINDOWS (minimal UI)
+    --         ----------------------------------------------------------------------
+    --
+    --         inactive_sections = {
+    --             lualine_a = {},
+    --             lualine_b = {},
+    --             lualine_c = { "filename" },
+    --             lualine_x = { "location" },
+    --             lualine_y = {},
+    --             lualine_z = {},
+    --         },
+    --
+    --         ----------------------------------------------------------------------
+    --         -- EXTENSIONS (plugin integrations)
+    --         ----------------------------------------------------------------------
+    --
+    --         extensions = {
+    --             "nvim-tree", -- file explorer
+    --             "quickfix", -- quickfix list
+    --             "fugitive", -- git integration
+    --         },
+    --     })
+    -- end,
 }

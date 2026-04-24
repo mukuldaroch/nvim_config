@@ -1,4 +1,10 @@
-vim.opt.laststatus = 3 -- global statusline (Neovim 0.7+)
+-- hides the command line until you need it
+vim.opt.laststatus = 0
+vim.opt.cmdheight = 0
+
+vim.opt.termguicolors = true
+
+-- vim.opt.laststatus = 3 -- global statusline (Neovim 0.7+)
 
 -- Make line numbers default
 vim.opt.number = true
@@ -7,7 +13,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
+-- vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false

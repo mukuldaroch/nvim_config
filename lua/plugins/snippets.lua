@@ -1,5 +1,6 @@
 return {
     "L3MON4D3/LuaSnip",
+    event = "VeryLazy", -- Load it lazily on a very lazy event
     version = "v2.*", -- Use stable version
     build = "make install_jsregexp", -- Required for regex snippets
     dependencies = {

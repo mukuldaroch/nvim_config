@@ -1,6 +1,7 @@
 return {
     {
         "kdheepak/lazygit.nvim",
+        event = "VeryLazy", -- Load it lazily on a very lazy event
         config = function() end,
     },
     -- ------------------------------------------------------------------------
