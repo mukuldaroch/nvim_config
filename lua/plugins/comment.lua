@@ -107,23 +107,8 @@ return {
     },
 
     {
-        "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-
-            local api = require("Comment.api")
-            local map = vim.keymap.set
-            local opts = { desc = "Toggle Comment" }
-
-            -- Normal mode
-            map("n", "<leader>c", api.toggle.linewise.current, opts)
-
-            -- Visual mode
-            map("v", "<leader>c", function()
-                local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-                vim.api.nvim_feedkeys(esc, "nx", false)
-                api.toggle.linewise(vim.fn.visualmode())
-            end, opts)
-        end,
+        "tpope/vim-commentary",
     },
+    vim.keymap.set("n", "<leader>c", "gcc", { remap = true, desc = "Comment line" }),
+    vim.keymap.set("x", "<leader>c", "gc", { remap = true, desc = "Comment selection" }),
 }
